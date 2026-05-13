@@ -21,7 +21,7 @@ export const Route = createFileRoute("/join")({
     ],
     links: [{ rel: "canonical", href: "/join" }],
   }),
-  component: Join;
+  component: Join,
 });
 
 function Join() {
