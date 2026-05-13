@@ -74,8 +74,8 @@ function Home() {
             Three threads · One plate
           </span>
           <h2 className="mt-6 font-display text-4xl md:text-6xl leading-tight text-foreground text-balance">
-            We feed students with the food Taiwan was about to throw away —
-            <span className="italic"> cooked the way grandmothers do.</span>
+            We rescue Taiwan&rsquo;s surplus harvest before it&rsquo;s lost —
+            <span className="italic"> and cook it the way grandmothers always have.</span>
           </h2>
         </div>
       </section>

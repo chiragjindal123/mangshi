@@ -34,6 +34,7 @@
   --color-clay: var(--clay);
   --color-paper: var(--paper);
   --color-indigo-dye: var(--indigo-dye);
+  --color-sage: var(--sage);
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -41,30 +42,33 @@
 
 :root {
   --radius: 0.25rem;
-  /* Warm rice-paper */
-  --background: oklch(0.967 0.012 80);
-  --foreground: oklch(0.22 0.012 50);
-  --card: oklch(0.99 0.008 80);
-  --card-foreground: oklch(0.22 0.012 50);
-  --popover: oklch(0.99 0.008 80);
-  --popover-foreground: oklch(0.22 0.012 50);
-  /* Deep Hakka indigo */
-  --primary: oklch(0.32 0.06 265);
-  --primary-foreground: oklch(0.967 0.012 80);
-  --secondary: oklch(0.92 0.012 70);
-  --secondary-foreground: oklch(0.22 0.012 50);
-  --muted: oklch(0.93 0.01 70);
-  --muted-foreground: oklch(0.52 0.015 60);
-  --accent: oklch(0.32 0.06 265);
-  --accent-foreground: oklch(0.967 0.012 80);
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(0.967 0.012 80);
-  --border: oklch(0.22 0.012 50 / 8%);
-  --input: oklch(0.22 0.012 50 / 12%);
-  --ring: oklch(0.32 0.06 265);
-  --clay: oklch(0.55 0.025 60);
-  --paper: oklch(0.967 0.012 80);
-  --indigo-dye: oklch(0.32 0.06 265);
+  /* Cream rice-paper from logo background */
+  --background: oklch(0.945 0.025 85);
+  --foreground: oklch(0.28 0.03 55);
+  --card: oklch(0.965 0.02 85);
+  --card-foreground: oklch(0.28 0.03 55);
+  --popover: oklch(0.965 0.02 85);
+  --popover-foreground: oklch(0.28 0.03 55);
+  /* Dark cocoa-brown ink (logo outlines) — used as primary CTA */
+  --primary: oklch(0.32 0.035 55);
+  --primary-foreground: oklch(0.945 0.025 85);
+  --secondary: oklch(0.9 0.022 85);
+  --secondary-foreground: oklch(0.28 0.03 55);
+  --muted: oklch(0.91 0.018 80);
+  --muted-foreground: oklch(0.5 0.025 65);
+  /* Olive sage from logo ribbon — accent */
+  --accent: oklch(0.6 0.055 110);
+  --accent-foreground: oklch(0.945 0.025 85);
+  --destructive: oklch(0.55 0.18 30);
+  --destructive-foreground: oklch(0.945 0.025 85);
+  --border: oklch(0.28 0.03 55 / 10%);
+  --input: oklch(0.28 0.03 55 / 14%);
+  --ring: oklch(0.6 0.055 110);
+  --clay: oklch(0.5 0.025 65);
+  --paper: oklch(0.945 0.025 85);
+  /* Repurposed: now the dark brown ink — keeps existing class names working */
+  --indigo-dye: oklch(0.32 0.035 55);
+  --sage: oklch(0.55 0.055 110);
 }
 
 .dark {
