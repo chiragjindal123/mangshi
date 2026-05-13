@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "An experiential platform reviving Hakka food culture for Taiwan students by rescuing surplus farm produce and serving it as sealed surprise meals.",
       },
-      { property: "og:title", content: "Hakka Blind Box" },
+      { property: "og:title", content: "Hakka Blind Box — Mama's hand, sealed in a box" },
       {
         property: "og:description",
         content:
@@ -87,6 +87,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Hakka Blind Box" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Hakka Blind Box — Mama's hand, sealed in a box" },
+      { name: "description", content: "Culinary Canvas offers an immersive digital experience celebrating Hakka culture through food, featuring educational videos and a unique blind box meal service." },
+      { property: "og:description", content: "Culinary Canvas offers an immersive digital experience celebrating Hakka culture through food, featuring educational videos and a unique blind box meal service." },
+      { name: "twitter:description", content: "Culinary Canvas offers an immersive digital experience celebrating Hakka culture through food, featuring educational videos and a unique blind box meal service." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fb7eede5-fc1b-49a1-a2fa-603baf3ef208/id-preview-9bc6de00--c6b408f5-408b-4896-aa4e-5e4c94896e42.lovable.app-1778691654569.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fb7eede5-fc1b-49a1-a2fa-603baf3ef208/id-preview-9bc6de00--c6b408f5-408b-4896-aa4e-5e4c94896e42.lovable.app-1778691654569.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
