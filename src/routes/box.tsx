@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { useLang } from "@/lib/i18n";
+import type { TranslationKey } from "@/lib/translations";
 
 export const Route = createFileRoute("/box")({
   head: () => ({
@@ -27,22 +29,27 @@ export const Route = createFileRoute("/box")({
 
 const sample = {
   batch: "#402",
-  origin: "Hsinchu Cooperative",
-  harvested: "48 hours ago",
   kcal: 520,
   protein: "26g",
   carbs: "58g",
   fat: "14g",
-  ingredients: [
-    "Pickled Mustard Greens — 120g",
-    "Heritage Pork Belly — 85g",
-    "Sun-dried Daikon Radish — 40g",
-    "Mountain Ginger — 15g",
-    "Mountain Rice — 180g",
-  ],
+  ingredientKeys: [
+    "box.ing1",
+    "box.ing2",
+    "box.ing3",
+    "box.ing4",
+    "box.ing5",
+  ] as TranslationKey[],
 };
 
+const whys: Array<{ no: string; titleKey: TranslationKey; bodyKey: TranslationKey }> = [
+  { no: "i.", titleKey: "box.why1.title", bodyKey: "box.why1.body" },
+  { no: "ii.", titleKey: "box.why2.title", bodyKey: "box.why2.body" },
+  { no: "iii.", titleKey: "box.why3.title", bodyKey: "box.why3.body" },
+];
+
 function BoxPage() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
 
   return (
@@ -52,15 +59,14 @@ function BoxPage() {
       {/* HEADER */}
       <section className="pt-40 pb-16 px-6 md:px-8 max-w-5xl mx-auto text-center">
         <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-indigo-dye">
-          Chapter Two · The Reveal
+          {t("box.kicker")}
         </span>
         <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-balance">
-          A meal you can read, <br />
-          but cannot <span className="italic">see.</span>
+          {t("box.title1")} <br />
+          {t("box.title2")} <span className="italic">{t("box.title.see")}</span>
         </h1>
         <p className="mt-8 max-w-xl mx-auto text-clay leading-relaxed text-lg">
-          Click the box. The label flips — ingredients and nutrition, nothing
-          else. The dish itself waits inside, where surprise should live.
+          {t("box.body")}
         </p>
       </section>
 
@@ -71,7 +77,7 @@ function BoxPage() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-pressed={open}
-            aria-label={open ? "Hide ingredients" : "Reveal ingredients"}
+            aria-label={open ? t("box.aria.hide") : t("box.aria.reveal")}
             className="relative w-full aspect-square cursor-pointer group [perspective:1500px] focus:outline-none"
           >
             <div
@@ -84,7 +90,7 @@ function BoxPage() {
               <div className="absolute inset-0 bg-indigo-dye text-paper p-10 flex flex-col items-center justify-center [backface-visibility:hidden]">
                 <div className="w-full h-full border border-paper/20 flex flex-col items-center justify-center gap-6">
                   <span className="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60">
-                    Sealed for surprise
+                    {t("box.sealed")}
                   </span>
                   <div className="w-32 h-32 border border-paper/30 rotate-45 flex items-center justify-center">
                     <span className="-rotate-45 font-display text-5xl italic">
@@ -92,7 +98,7 @@ function BoxPage() {
                     </span>
                   </div>
                   <span className="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60">
-                    Tap to read the label
+                    {t("box.tap")}
                   </span>
                 </div>
               </div>
@@ -102,26 +108,23 @@ function BoxPage() {
                 <div className="flex justify-between items-start">
                   <div>
                     <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-indigo-dye font-semibold">
-                      Batch {sample.batch}
+                      {t("box.batch")} {sample.batch}
                     </span>
                     <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-clay">
-                      {sample.origin}
+                      {t("box.origin")}
                     </p>
                   </div>
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay text-right">
-                    Harvested
+                    {t("box.harvested")}
                     <br />
-                    {sample.harvested}
+                    {t("box.harvested.value")}
                   </span>
                 </div>
 
                 <ul className="mt-6 flex-1 flex flex-col justify-center font-display text-xl md:text-2xl leading-snug">
-                  {sample.ingredients.map((i) => (
-                    <li
-                      key={i}
-                      className="border-b border-foreground/10 py-2"
-                    >
-                      {i}
+                  {sample.ingredientKeys.map((k) => (
+                    <li key={k} className="border-b border-foreground/10 py-2">
+                      {t(k)}
                     </li>
                   ))}
                 </ul>
@@ -131,25 +134,25 @@ function BoxPage() {
                     <span className="block text-foreground text-base font-display">
                       {sample.kcal}
                     </span>
-                    kcal
+                    {t("box.kcal")}
                   </div>
                   <div>
                     <span className="block text-foreground text-base font-display">
                       {sample.protein}
                     </span>
-                    Protein
+                    {t("box.protein")}
                   </div>
                   <div>
                     <span className="block text-foreground text-base font-display">
                       {sample.carbs}
                     </span>
-                    Carbs
+                    {t("box.carbs")}
                   </div>
                   <div>
                     <span className="block text-foreground text-base font-display">
                       {sample.fat}
                     </span>
-                    Fat
+                    {t("box.fat")}
                   </div>
                 </div>
               </div>
@@ -157,7 +160,7 @@ function BoxPage() {
           </button>
 
           <p className="mt-6 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-clay">
-            {open ? "Sealed again →" : "← Reveal label"}
+            {open ? t("box.toggle.open") : t("box.toggle.closed")}
           </p>
         </div>
       </section>
@@ -166,36 +169,20 @@ function BoxPage() {
       <section className="bg-indigo-dye text-paper py-24 md:py-32 px-6 md:px-8">
         <div className="max-w-5xl mx-auto">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60">
-            Why blind?
+            {t("box.why.kicker")}
           </span>
           <h2 className="mt-4 font-display text-4xl md:text-6xl leading-tight">
-            Three reasons we don&rsquo;t show the dish.
+            {t("box.why.title")}
           </h2>
 
           <div className="mt-16 grid md:grid-cols-3 gap-12">
-            {[
-              {
-                no: "i.",
-                title: "Against visual bias",
-                body: "Photos sell appearance. We want students to trust ingredients first — the way grandparents taught their kids to eat.",
-              },
-              {
-                no: "ii.",
-                title: "Against waste",
-                body: "Today's box uses what farms had to spare today. The menu can't be a fixed image — it changes with the harvest.",
-              },
-              {
-                no: "iii.",
-                title: "For surprise",
-                body: "Dinner becomes a small ritual: open, smell, taste, guess. Hakka cooking already lives in this kind of attention.",
-              },
-            ].map((c) => (
+            {whys.map((c) => (
               <article key={c.no}>
                 <span className="font-display italic text-3xl text-paper/70">
                   {c.no}
                 </span>
-                <h3 className="mt-3 font-display text-2xl">{c.title}</h3>
-                <p className="mt-4 text-paper/80 leading-relaxed">{c.body}</p>
+                <h3 className="mt-3 font-display text-2xl">{t(c.titleKey)}</h3>
+                <p className="mt-4 text-paper/80 leading-relaxed">{t(c.bodyKey)}</p>
               </article>
             ))}
           </div>

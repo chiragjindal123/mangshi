@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/join")({
   head: () => ({
@@ -25,6 +26,7 @@ export const Route = createFileRoute("/join")({
 });
 
 function Join() {
+  const { t } = useLang();
   const [submitted, setSubmitted] = useState(false);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -39,16 +41,14 @@ function Join() {
       <section className="flex-1 pt-40 pb-24 px-6 md:px-8">
         <div className="max-w-3xl mx-auto">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-indigo-dye">
-            Chapter Four · Join
+            {t("join.kicker")}
           </span>
           <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-balance">
-            Open the first box <br />
-            <span className="italic">with us.</span>
+            {t("join.title1")} <br />
+            <span className="italic">{t("join.title2")}</span>
           </h1>
           <p className="mt-8 max-w-xl text-clay leading-relaxed text-lg">
-            We&rsquo;re launching a pilot in Taoyuan. Leave your email or LINE
-            ID and we&rsquo;ll let you know when the first batch is ready —
-            and how to claim a box at student price.
+            {t("join.body")}
           </p>
 
           {/* FORM */}
@@ -56,11 +56,10 @@ function Join() {
             {submitted ? (
               <div className="py-12 text-center">
                 <p className="font-display italic text-3xl md:text-4xl text-indigo-dye">
-                  Thank you.
+                  {t("join.thanks.title")}
                 </p>
                 <p className="mt-4 text-clay max-w-md mx-auto leading-relaxed">
-                  We&rsquo;ll be in touch when the first batch leaves the
-                  kitchen. Until then — eat well, waste less.
+                  {t("join.thanks.body")}
                 </p>
               </div>
             ) : (
@@ -68,52 +67,52 @@ function Join() {
                 <div className="grid sm:grid-cols-2 gap-6">
                   <label className="block">
                     <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-clay">
-                      Name
+                      {t("join.field.name")}
                     </span>
                     <input
                       required
                       type="text"
                       className="mt-2 w-full bg-transparent border-b border-foreground/30 focus:border-indigo-dye outline-none py-3 text-lg font-display"
-                      placeholder="Your name"
+                      placeholder={t("join.field.name.ph")}
                     />
                   </label>
                   <label className="block">
                     <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-clay">
-                      Email
+                      {t("join.field.email")}
                     </span>
                     <input
                       required
                       type="email"
                       className="mt-2 w-full bg-transparent border-b border-foreground/30 focus:border-indigo-dye outline-none py-3 text-lg font-display"
-                      placeholder="you@university.edu"
+                      placeholder={t("join.field.email.ph")}
                     />
                   </label>
                 </div>
 
                 <label className="block">
                   <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-clay">
-                    I am a…
+                    {t("join.field.role")}
                   </span>
                   <select
                     className="mt-2 w-full bg-transparent border-b border-foreground/30 focus:border-indigo-dye outline-none py-3 text-lg font-display appearance-none"
                     defaultValue="student"
                   >
-                    <option value="student">Student in Taiwan</option>
-                    <option value="intl">International student</option>
-                    <option value="farm">Farmer / cooperative</option>
-                    <option value="school">School / university</option>
-                    <option value="volunteer">Volunteer or cook</option>
+                    <option value="student">{t("join.role.student")}</option>
+                    <option value="intl">{t("join.role.intl")}</option>
+                    <option value="farm">{t("join.role.farm")}</option>
+                    <option value="school">{t("join.role.school")}</option>
+                    <option value="volunteer">{t("join.role.volunteer")}</option>
                   </select>
                 </label>
 
                 <label className="block">
                   <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-clay">
-                    Anything we should know? (optional)
+                    {t("join.field.note")}
                   </span>
                   <textarea
                     rows={3}
                     className="mt-2 w-full bg-transparent border-b border-foreground/30 focus:border-indigo-dye outline-none py-3 text-base resize-none"
-                    placeholder="Allergies, your campus, why you're interested…"
+                    placeholder={t("join.field.note.ph")}
                   />
                 </label>
 
@@ -121,7 +120,7 @@ function Join() {
                   type="submit"
                   className="mt-6 self-start group inline-flex items-center gap-4 bg-indigo-dye text-paper px-8 py-4 font-mono text-[11px] uppercase tracking-[0.25em] hover:opacity-90 transition-opacity"
                 >
-                  <span>Reserve my box</span>
+                  <span>{t("join.submit")}</span>
                   <span className="block w-6 h-px bg-paper transition-all duration-500 group-hover:w-10" />
                 </button>
               </form>
@@ -131,10 +130,9 @@ function Join() {
           {/* SECONDARY */}
           <div className="mt-24 grid md:grid-cols-2 gap-10 border-t border-foreground/10 pt-10">
             <div>
-              <h3 className="font-display text-2xl">For farmers</h3>
+              <h3 className="font-display text-2xl">{t("join.farmers.title")}</h3>
               <p className="mt-3 text-clay leading-relaxed">
-                If you&rsquo;re a Taoyuan, Hsinchu or Miaoli grower with
-                surplus produce, we&rsquo;ll come pick it up. Email{" "}
+                {t("join.farmers.body1")}
                 <a className="underline text-indigo-dye" href="mailto:farm@hakkabox.tw">
                   farm@hakkabox.tw
                 </a>
@@ -142,9 +140,9 @@ function Join() {
               </p>
             </div>
             <div>
-              <h3 className="font-display text-2xl">For universities</h3>
+              <h3 className="font-display text-2xl">{t("join.universities.title")}</h3>
               <p className="mt-3 text-clay leading-relaxed">
-                Bring the box to your campus dining program. Email{" "}
+                {t("join.universities.body1")}
                 <a className="underline text-indigo-dye" href="mailto:campus@hakkabox.tw">
                   campus@hakkabox.tw
                 </a>

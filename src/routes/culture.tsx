@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { useLang } from "@/lib/i18n";
+import type { TranslationKey } from "@/lib/translations";
 import cultureHands from "@/assets/culture-hands.jpg";
 import cultureVillage from "@/assets/culture-village.jpg";
 import ingredients from "@/assets/ingredients.jpg";
@@ -27,30 +29,15 @@ export const Route = createFileRoute("/culture")({
   component: Culture,
 });
 
-const stories = [
-  {
-    no: "01",
-    title: "Lei Cha — the bowl of pounded tea",
-    body: "Roasted seeds, herbs, and tea leaves ground with a wooden pestle into a savoury broth. A Hakka welcome older than tea ceremony itself.",
-  },
-  {
-    no: "02",
-    title: "Pickled mustard greens (酸菜)",
-    body: "Surplus winter greens were buried in salt and time. The same jars now feed our kitchen — every bite is a ledger of patience.",
-  },
-  {
-    no: "03",
-    title: "Indigo dyeing of Sanyi",
-    body: "The deep blue on our box wraps comes from a Hakka craft that turned mountain plants into the cloth a whole people wore to work.",
-  },
-  {
-    no: "04",
-    title: "The migrant table",
-    body: "Hakka means 'guest family' — four hundred years of moving across China and Taiwan. Their food learned to travel, store, and share.",
-  },
+const stories: Array<{ no: string; titleKey: TranslationKey; bodyKey: TranslationKey }> = [
+  { no: "01", titleKey: "culture.story1.title", bodyKey: "culture.story1.body" },
+  { no: "02", titleKey: "culture.story2.title", bodyKey: "culture.story2.body" },
+  { no: "03", titleKey: "culture.story3.title", bodyKey: "culture.story3.body" },
+  { no: "04", titleKey: "culture.story4.title", bodyKey: "culture.story4.body" },
 ];
 
 function Culture() {
+  const { t } = useLang();
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
@@ -58,16 +45,14 @@ function Culture() {
       {/* OPENING */}
       <section className="pt-40 pb-20 px-6 md:px-8 max-w-5xl mx-auto">
         <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-indigo-dye">
-          Chapter One · Heritage
+          {t("culture.kicker")}
         </span>
         <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-balance">
-          A cuisine taught by <span className="italic">scarcity,</span>{" "}
-          remembered through <span className="italic">generosity.</span>
+          {t("culture.title1")} <span className="italic">{t("culture.title.scarcity")}</span>{" "}
+          {t("culture.title2")} <span className="italic">{t("culture.title.generosity")}</span>
         </h1>
         <p className="mt-8 max-w-2xl text-clay leading-relaxed text-lg">
-          The Hakka people of Taiwan settled the harder land — the foothills,
-          the marginal soil. Their cooking became a quiet engineering of time:
-          how to make a single harvest feed a family until the next one came.
+          {t("culture.body")}
         </p>
       </section>
 
@@ -82,7 +67,7 @@ function Culture() {
           className="w-full aspect-[16/9] object-cover"
         />
         <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.3em] text-clay/70">
-          A village courtyard in Miaoli — pickling jars, dried herbs, indigo cloth.
+          {t("culture.caption")}
         </p>
       </section>
 
@@ -90,10 +75,10 @@ function Culture() {
       <section className="py-24 md:py-32 px-6 md:px-8">
         <div className="max-w-6xl mx-auto">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-clay">
-            Field notes
+            {t("culture.notes.kicker")}
           </span>
           <h2 className="mt-4 font-display text-4xl md:text-5xl">
-            Four traditions, still warm.
+            {t("culture.notes.title")}
           </h2>
 
           <div className="mt-16 grid md:grid-cols-2 gap-x-12 gap-y-16">
@@ -103,9 +88,9 @@ function Culture() {
                   {s.no}
                 </span>
                 <h3 className="mt-3 font-display text-3xl leading-tight">
-                  {s.title}
+                  {t(s.titleKey)}
                 </h3>
-                <p className="mt-4 text-clay leading-relaxed">{s.body}</p>
+                <p className="mt-4 text-clay leading-relaxed">{t(s.bodyKey)}</p>
               </article>
             ))}
           </div>
@@ -127,11 +112,10 @@ function Culture() {
           </div>
           <div className="md:col-span-6">
             <blockquote className="font-display text-3xl md:text-5xl italic leading-tight text-balance">
-              &ldquo;We never threw food out. The pot just got older, and so
-              did the flavour.&rdquo;
+              &ldquo;{t("culture.quote")}&rdquo;
             </blockquote>
             <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.3em] text-clay">
-              — Grandmother Liu, Beipu, 87
+              {t("culture.quote.attr")}
             </p>
           </div>
         </div>
@@ -150,9 +134,10 @@ function Culture() {
           />
           <div className="mt-10 max-w-2xl">
             <p className="font-display text-2xl md:text-3xl leading-snug text-balance">
-              These are the ingredients today&rsquo;s market called{" "}
-              <span className="italic">surplus.</span> A Hakka kitchen would
-              just call them <span className="italic">dinner.</span>
+              {t("culture.closing")}{" "}
+              <span className="italic">{t("culture.closing.surplus")}</span>{" "}
+              {t("culture.closing2")}{" "}
+              <span className="italic">{t("culture.closing.dinner")}</span>
             </p>
           </div>
         </div>
