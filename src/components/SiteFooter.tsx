@@ -9,9 +9,9 @@ export function SiteFooter() {
         <div>
           <Link
             to="/"
-            className="font-display italic text-2xl text-indigo-dye"
+            className="font-display italic text-2xl text-indigo-dye hover:opacity-80 transition-opacity"
           >
-            Hakka Blind Box
+            Mangshi <span className="not-italic text-clay text-base">盲食</span>
           </Link>
           <p className="mt-4 text-sm text-clay leading-relaxed max-w-xs">
             {t("footer.tagline")}
@@ -25,16 +25,16 @@ export function SiteFooter() {
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay/60 mb-1">
             {t("footer.explore")}
           </span>
-          <Link to="/culture" className="text-sm hover:text-indigo-dye transition-colors">
+          <Link to="/culture" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.culture")}
           </Link>
-          <Link to="/box" className="text-sm hover:text-indigo-dye transition-colors">
+          <Link to="/box" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.box")}
           </Link>
-          <Link to="/mission" className="text-sm hover:text-indigo-dye transition-colors">
+          <Link to="/mission" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.mission")}
           </Link>
-          <Link to="/join" className="text-sm hover:text-indigo-dye transition-colors">
+          <Link to="/join" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.join")}
           </Link>
         </div>

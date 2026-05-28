@@ -84,7 +84,7 @@ function Home() {
       {/* CULTURE TEASER */}
       <section className="px-6 md:px-8 pb-24 md:pb-32">
         <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16 items-end">
-          <div className="md:col-span-7">
+          <div className="md:col-span-7 img-hover-zoom">
             <img
               src={cultureHands}
               alt="Elderly Hakka woman weaving indigo textile"
@@ -118,7 +118,7 @@ function Home() {
       {/* BOX TEASER */}
       <section className="bg-indigo-dye text-paper py-24 md:py-32 px-6 md:px-8">
         <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <div className="md:col-span-5 md:order-2">
+          <div className="md:col-span-5 md:order-2 img-hover-zoom">
             <img
               src={boxSealed}
               alt="A sealed kraft meal box with an indigo paper band"

@@ -57,21 +57,21 @@ export function SiteNav() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between gap-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-[4.5rem] flex items-center justify-between gap-3">
         <Link
           to="/"
           onClick={() => setOpen(false)}
-          className="flex items-center gap-2 sm:gap-2.5 group min-w-0"
+          className="flex items-center gap-3 sm:gap-3.5 group min-w-0"
         >
           <img
             src={logo}
             alt="Mangshi 盲食"
-            width={36}
-            height={36}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover shrink-0"
+            width={56}
+            height={56}
+            className="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full object-cover shrink-0 ring-2 ring-border group-hover:ring-indigo-dye/30 transition-all duration-500"
           />
-          <span className="font-display italic text-lg sm:text-xl md:text-2xl tracking-tight text-foreground truncate">
-            Mangshi <span className="not-italic text-clay text-sm sm:text-base">盲食</span>
+          <span className="font-display italic text-xl sm:text-2xl md:text-3xl tracking-tight text-foreground truncate">
+            Mangshi <span className="not-italic text-clay text-sm sm:text-base md:text-lg">盲食</span>
           </span>
         </Link>
 
@@ -82,10 +82,11 @@ export function SiteNav() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="hover:text-foreground transition-colors"
+                className="relative py-1 hover:text-foreground transition-colors duration-300"
                 activeProps={{ className: "text-foreground" }}
               >
                 {l.label}
+                <span className="absolute bottom-0 left-0 w-full h-px bg-foreground scale-x-0 group-[.active]:scale-x-100 transition-transform duration-300 origin-left" />
               </Link>
             ))}
           </div>
@@ -100,7 +101,7 @@ export function SiteNav() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={open ? "Close menu" : "Open menu"}
-            className="p-2 -mr-2 text-foreground"
+            className="p-2 -mr-2 text-foreground hover:bg-foreground/5 rounded-full transition-colors"
           >
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -110,16 +111,16 @@ export function SiteNav() {
       {/* Mobile sheet */}
       <div
         className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-out border-t border-border bg-background ${
-          open ? "max-h-96" : "max-h-0"
+          open ? "max-h-[28rem]" : "max-h-0"
         }`}
       >
-        <div className="px-6 py-6 flex flex-col gap-5 text-sm uppercase tracking-[0.2em] font-medium text-clay">
+        <div className="px-6 py-8 flex flex-col gap-6 text-sm uppercase tracking-[0.2em] font-medium text-clay">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               onClick={() => setOpen(false)}
-              className="hover:text-foreground transition-colors"
+              className="hover:text-foreground transition-colors py-1"
               activeProps={{ className: "text-foreground" }}
             >
               {l.label}
