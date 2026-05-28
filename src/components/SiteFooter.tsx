@@ -9,9 +9,9 @@ export function SiteFooter() {
         <div>
           <Link
             to="/"
-            className="font-display italic text-2xl text-indigo-dye"
+            className="font-display italic text-2xl text-indigo-dye hover:opacity-80 transition-opacity"
           >
-            Hakka Blind Box
+            Mangshi <span className="not-italic text-clay text-base">盲食</span>
           </Link>
           <p className="mt-4 text-sm text-clay leading-relaxed max-w-xs">
             {t("footer.tagline")}
