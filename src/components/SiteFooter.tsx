@@ -25,16 +25,16 @@ export function SiteFooter() {
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay/60 mb-1">
             {t("footer.explore")}
           </span>
-          <Link to="/culture" className="text-sm hover:text-indigo-dye transition-colors">
+          <Link to="/culture" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.culture")}
           </Link>
-          <Link to="/box" className="text-sm hover:text-indigo-dye transition-colors">
+          <Link to="/box" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.box")}
           </Link>
-          <Link to="/mission" className="text-sm hover:text-indigo-dye transition-colors">
+          <Link to="/mission" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.mission")}
           </Link>
-          <Link to="/join" className="text-sm hover:text-indigo-dye transition-colors">
+          <Link to="/join" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.join")}
           </Link>
         </div>
