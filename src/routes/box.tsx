@@ -87,17 +87,17 @@ function BoxPage() {
               }}
             >
               {/* SEALED FACE */}
-              <div className="absolute inset-0 bg-indigo-dye text-paper p-10 flex flex-col items-center justify-center [backface-visibility:hidden]">
-                <div className="w-full h-full border border-paper/20 flex flex-col items-center justify-center gap-6">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60">
+              <div className="absolute inset-0 bg-indigo-dye text-paper p-6 sm:p-10 flex flex-col items-center justify-center [backface-visibility:hidden]">
+                <div className="w-full h-full border border-paper/20 flex flex-col items-center justify-center gap-6 sm:gap-8 py-6">
+                  <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.3em] opacity-60">
                     {t("box.sealed")}
                   </span>
-                  <div className="w-32 h-32 border border-paper/30 rotate-45 flex items-center justify-center">
-                    <span className="-rotate-45 font-display text-5xl italic">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 border border-paper/30 rotate-45 flex items-center justify-center shrink-0">
+                    <span className="-rotate-45 font-display text-4xl sm:text-5xl italic">
                       H
                     </span>
                   </div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60">
+                  <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.3em] opacity-60">
                     {t("box.tap")}
                   </span>
                 </div>
