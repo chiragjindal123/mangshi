@@ -35,7 +35,7 @@ function Home() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative h-screen w-full overflow-hidden">
+      <section className="relative min-h-[100svh] w-full overflow-hidden">
         <img
           src={heroSteam}
           alt="Steam rising from a bamboo steamer in a Taiwanese kitchen"
@@ -44,11 +44,11 @@ function Home() {
           className="absolute inset-0 w-full h-full object-cover animate-slow-zoom"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/70" />
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 animate-reveal">
-          <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-paper/70 mb-8">
+        <div className="relative z-10 min-h-[100svh] flex flex-col items-center justify-center text-center px-6 py-28 animate-reveal">
+          <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.35em] text-paper/70 mb-6 sm:mb-8">
             {t("home.hero.kicker")}
           </span>
-          <h1 className="font-display text-5xl sm:text-6xl md:text-8xl text-paper leading-[0.95] text-balance max-w-5xl">
+          <h1 className="font-display text-[2.5rem] leading-[1.02] sm:text-6xl md:text-8xl text-paper sm:leading-[0.95] text-balance max-w-5xl">
             {t("home.hero.title1")} <br className="hidden md:block" />
             <span className="italic">{t("home.hero.title2")}</span>
           </h1>
