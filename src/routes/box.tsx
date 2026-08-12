@@ -78,7 +78,7 @@ function BoxPage() {
             onClick={() => setOpen((v) => !v)}
             aria-pressed={open}
             aria-label={open ? t("box.aria.hide") : t("box.aria.reveal")}
-            className="relative w-full aspect-square cursor-pointer group [perspective:1500px] focus:outline-none"
+            className="relative w-full h-[34rem] sm:h-auto sm:aspect-square cursor-pointer group [perspective:1500px] focus:outline-none"
           >
             <div
               className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d]"
@@ -129,7 +129,7 @@ function BoxPage() {
                   ))}
                 </ul>
 
-                <div className="mt-6 pt-4 border-t border-foreground/10 grid grid-cols-4 gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-clay">
+                <div className="mt-5 pt-4 border-t border-foreground/10 grid grid-cols-4 gap-2 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.2em] text-clay">
                   <div>
                     <span className="block text-foreground text-base font-display">
                       {sample.kcal}
