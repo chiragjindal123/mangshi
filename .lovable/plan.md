@@ -53,6 +53,17 @@ A seeded library of ~12 standardized recipes (expandable), each storing per-100-
 
 ---
 
+### 5. `/system/calendar` — 12-Month Surplus Calendar
+A full-year seeded dataset: for each of the 12 months, which Taiwan vegetables are typically in overproduction, expected surplus volume (kg) per vegetable, and the peak/off-peak flag.
+
+Screen shows:
+- A 12-month strip; the current month is highlighted on load.
+- Selected month: overproduction list (vegetable + estimated kg + severity), total surplus kg, and the **recommended recipes for that month** — pulled from the Mama Recipe Library by matching that month's surplus vegetables, with max portions and projected utilization for the month.
+- A "this month" summary card reused on the impact dashboard and on the public site (one short line + number), so the seasonal story shows up in the experience too.
+
+Data comes from a seeded `seasonal_surplus` table (month, vegetable, typical surplus kg, notes) — real Taiwan seasonality (winter brassica glut incl. the broccoli/cabbage crisis, summer melon/tomato, spring bamboo/leafy). Editable later, not hardcoded in components.
+
+
 ## Technical notes
 
 - Lovable Cloud enabled: tables for `farm_supply`, `recipes`, `recipe_ingredients`, `preorders`, `production_plans`, `plan_items`. Recipes and a demo supply/preorder set are seeded in the migration so the first screen already shows data.
