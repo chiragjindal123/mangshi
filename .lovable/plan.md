@@ -66,7 +66,7 @@ Data comes from a seeded `seasonal_surplus` table (month, vegetable, typical sur
 
 ## Technical notes
 
-- Lovable Cloud enabled: tables for `farm_supply`, `recipes`, `recipe_ingredients`, `preorders`, `production_plans`, `plan_items`. Recipes and a demo supply/preorder set are seeded in the migration so the first screen already shows data.
+- Lovable Cloud enabled: tables for `farm_supply`, `recipes`, `recipe_ingredients`, `preorders`, `production_plans`, `plan_items`, `seasonal_surplus`. Recipes, the 12-month seasonal surplus rows, and a demo supply/preorder set are seeded in the migration so every screen already shows data.
 - Public read access for recipes and aggregate impact; supply/plan writes go through server functions. Demo mode means no login is required to try the matching screen.
 - Matching runs in a pure TypeScript module (`src/lib/matching.ts`) called from a server function — deterministic, testable, no AI dependency.
 - i18n: all new system screens use the same `translations.ts` keys with zh first.
