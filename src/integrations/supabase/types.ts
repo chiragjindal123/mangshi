@@ -14,7 +14,263 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      farm_supply: {
+        Row: {
+          available_from: string
+          available_to: string
+          created_at: string
+          farmer_name: string
+          id: string
+          kg: number
+          name_en: string
+          name_zh: string
+          status: string
+          veg_key: string
+        }
+        Insert: {
+          available_from?: string
+          available_to?: string
+          created_at?: string
+          farmer_name?: string
+          id?: string
+          kg: number
+          name_en: string
+          name_zh: string
+          status?: string
+          veg_key: string
+        }
+        Update: {
+          available_from?: string
+          available_to?: string
+          created_at?: string
+          farmer_name?: string
+          id?: string
+          kg?: number
+          name_en?: string
+          name_zh?: string
+          status?: string
+          veg_key?: string
+        }
+        Relationships: []
+      }
+      plan_items: {
+        Row: {
+          id: string
+          kg_used: number
+          plan_id: string
+          portions: number
+          recipe_id: string
+        }
+        Insert: {
+          id?: string
+          kg_used?: number
+          plan_id: string
+          portions: number
+          recipe_id: string
+        }
+        Update: {
+          id?: string
+          kg_used?: number
+          plan_id?: string
+          portions?: number
+          recipe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plan_items_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "production_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "plan_items_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      preorders: {
+        Row: {
+          campus: string
+          created_at: string
+          id: string
+          order_date: string
+          portions: number
+        }
+        Insert: {
+          campus?: string
+          created_at?: string
+          id?: string
+          order_date?: string
+          portions: number
+        }
+        Update: {
+          campus?: string
+          created_at?: string
+          id?: string
+          order_date?: string
+          portions?: number
+        }
+        Relationships: []
+      }
+      production_plans: {
+        Row: {
+          created_at: string
+          id: string
+          kg_available: number
+          kg_used: number
+          plan_date: string
+          total_meals: number
+          utilization: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kg_available?: number
+          kg_used?: number
+          plan_date?: string
+          total_meals?: number
+          utilization?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kg_available?: number
+          kg_used?: number
+          plan_date?: string
+          total_meals?: number
+          utilization?: number
+        }
+        Relationships: []
+      }
+      recipe_ingredients: {
+        Row: {
+          id: string
+          is_core: boolean
+          kg_per_100: number
+          name_en: string
+          name_zh: string
+          recipe_id: string
+          veg_key: string
+        }
+        Insert: {
+          id?: string
+          is_core?: boolean
+          kg_per_100: number
+          name_en: string
+          name_zh: string
+          recipe_id: string
+          veg_key: string
+        }
+        Update: {
+          id?: string
+          is_core?: boolean
+          kg_per_100?: number
+          name_en?: string
+          name_zh?: string
+          recipe_id?: string
+          veg_key?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recipe_ingredients_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recipes: {
+        Row: {
+          allergens: string[]
+          code: string
+          cook_min: number
+          cost_ntd: number
+          created_at: string
+          id: string
+          kcal: number
+          max_batch: number
+          name_en: string
+          name_zh: string
+          note_en: string | null
+          note_zh: string | null
+          prep_min: number
+          vegetarian: boolean
+        }
+        Insert: {
+          allergens?: string[]
+          code: string
+          cook_min?: number
+          cost_ntd?: number
+          created_at?: string
+          id?: string
+          kcal?: number
+          max_batch?: number
+          name_en: string
+          name_zh: string
+          note_en?: string | null
+          note_zh?: string | null
+          prep_min?: number
+          vegetarian?: boolean
+        }
+        Update: {
+          allergens?: string[]
+          code?: string
+          cook_min?: number
+          cost_ntd?: number
+          created_at?: string
+          id?: string
+          kcal?: number
+          max_batch?: number
+          name_en?: string
+          name_zh?: string
+          note_en?: string | null
+          note_zh?: string | null
+          prep_min?: number
+          vegetarian?: boolean
+        }
+        Relationships: []
+      }
+      seasonal_surplus: {
+        Row: {
+          id: string
+          month: number
+          name_en: string
+          name_zh: string
+          note_en: string | null
+          note_zh: string | null
+          severity: string
+          typical_surplus_kg: number
+          veg_key: string
+        }
+        Insert: {
+          id?: string
+          month: number
+          name_en: string
+          name_zh: string
+          note_en?: string | null
+          note_zh?: string | null
+          severity?: string
+          typical_surplus_kg: number
+          veg_key: string
+        }
+        Update: {
+          id?: string
+          month?: number
+          name_en?: string
+          name_zh?: string
+          note_en?: string | null
+          note_zh?: string | null
+          severity?: string
+          typical_surplus_kg?: number
+          veg_key?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
