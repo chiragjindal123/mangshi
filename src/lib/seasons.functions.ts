@@ -8,7 +8,7 @@ export const getSeasonalCalendar = createServerFn({ method: "GET" }).handler(asy
   const supabase = createClient<Database>(process.env["SUPABASE_URL"]!, key, {
     auth: { persistSession: false, autoRefreshToken: false },
     global: {
-      fetch: (input, init) => {
+      fetch: (input: RequestInfo | URL, init?: RequestInit) => {
         const h = new Headers(init?.headers);
         if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) {
           h.delete("Authorization");
