@@ -12,6 +12,7 @@ export function SiteNav() {
     { to: "/culture", label: t("nav.culture") },
     { to: "/box", label: t("nav.box") },
     { to: "/mission", label: t("nav.mission") },
+    { to: "/seasons", label: t("nav.seasons") },
     { to: "/join", label: t("nav.join") },
   ] as const;
 
