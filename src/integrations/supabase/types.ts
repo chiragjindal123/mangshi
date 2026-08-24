@@ -187,10 +187,13 @@ export type Database = {
       recipes: {
         Row: {
           allergens: string[]
+          carbs_g: number
           code: string
           cook_min: number
           cost_ntd: number
           created_at: string
+          fat_g: number
+          fiber_g: number
           id: string
           kcal: number
           max_batch: number
@@ -199,14 +202,18 @@ export type Database = {
           note_en: string | null
           note_zh: string | null
           prep_min: number
+          protein_g: number
           vegetarian: boolean
         }
         Insert: {
           allergens?: string[]
+          carbs_g?: number
           code: string
           cook_min?: number
           cost_ntd?: number
           created_at?: string
+          fat_g?: number
+          fiber_g?: number
           id?: string
           kcal?: number
           max_batch?: number
@@ -215,14 +222,18 @@ export type Database = {
           note_en?: string | null
           note_zh?: string | null
           prep_min?: number
+          protein_g?: number
           vegetarian?: boolean
         }
         Update: {
           allergens?: string[]
+          carbs_g?: number
           code?: string
           cook_min?: number
           cost_ntd?: number
           created_at?: string
+          fat_g?: number
+          fiber_g?: number
           id?: string
           kcal?: number
           max_batch?: number
@@ -231,6 +242,7 @@ export type Database = {
           note_en?: string | null
           note_zh?: string | null
           prep_min?: number
+          protein_g?: number
           vegetarian?: boolean
         }
         Relationships: []
