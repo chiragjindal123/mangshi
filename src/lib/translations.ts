@@ -7,6 +7,7 @@ export const translations = {
   "nav.culture": { en: "Culture", zh: "文化" },
   "nav.box": { en: "The Box", zh: "盲盒" },
   "nav.mission": { en: "Mission", zh: "使命" },
+  "nav.seasons": { en: "Surplus", zh: "月曆" },
   "nav.join": { en: "Join", zh: "加入" },
   "nav.lang.label": { en: "Language", zh: "語言" },
 
