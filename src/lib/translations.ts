@@ -309,6 +309,47 @@ export const translations = {
     en: "Bring the box to your campus dining program. Email ",
     zh: "把盲盒帶進你的校園餐飲計畫。請來信 ",
   },
+
+  // ---------- SEASONS / SURPLUS CALENDAR ----------
+  "seasons.kicker": { en: "Surplus Calendar · 產季剩食月曆", zh: "產季剩食月曆 · Surplus Calendar" },
+  "seasons.title1": { en: "Every month has its", zh: "每個月,都有" },
+  "seasons.title2": { en: "overflow.", zh: "吃不完的收成。" },
+  "seasons.body": {
+    en: "Pick a month to see which Taiwanese vegetables go to waste — and the Hakka dishes we build from them, with real quantities and nutrition per portion.",
+    zh: "選一個月份,看見台灣哪些蔬菜過剩 —— 以及我們用它們做出的客家菜、實際用量與每份營養。",
+  },
+  "seasons.surplus.heading": { en: "surplus", zh: "剩食" },
+  "seasons.kg.available": { en: "Surplus available", zh: "可用剩食" },
+  "seasons.meals": { en: "Meals planned", zh: "可做餐數" },
+  "seasons.utilization": { en: "Utilization", zh: "利用率" },
+  "seasons.sev.high": { en: "Severe", zh: "嚴重" },
+  "seasons.sev.medium": { en: "Moderate", zh: "中等" },
+  "seasons.sev.low": { en: "Mild", zh: "輕微" },
+  "seasons.menu.kicker": { en: "Recommended this month", zh: "本月推薦" },
+  "seasons.menu.title": { en: "What to cook with it.", zh: "這些菜,可以這樣煮。" },
+  "seasons.menu.body": {
+    en: "Selected from our validated recipe library and scaled to the surplus on hand — no dish is invented, only chosen and sized.",
+    zh: "從已驗證的食譜庫中挑選,再依剩食量放大 —— 不憑空發明菜色,只選擇與換算份量。",
+  },
+  "seasons.menu.label": { en: "Menu", zh: "菜單" },
+  "seasons.portion": { en: "portion", zh: "份" },
+  "seasons.portions": { en: "portions", zh: "份" },
+  "seasons.used": { en: "surplus used", zh: "剩食用量" },
+  "seasons.ingredients": { en: "Ingredients & amounts", zh: "食材與用量" },
+  "seasons.nutrition": { en: "Per portion", zh: "每份營養(約)" },
+  "seasons.fiber": { en: "Fiber", zh: "纖維" },
+  "seasons.veg": { en: "Vegetarian", zh: "素食" },
+  "seasons.nonveg": { en: "Contains meat", zh: "含肉" },
+  "seasons.allergens": { en: "Allergens", zh: "過敏原" },
+  "seasons.method.kicker": { en: "How the numbers work", zh: "數字怎麼來的" },
+  "seasons.method.title": {
+    en: "Surplus in. Menus, grams and nutrition out.",
+    zh: "剩食進來,菜單、公克與營養出去。",
+  },
+  "seasons.method.body": {
+    en: "Monthly surplus figures come from cooperative harvest records. Each recipe stores quantities per 100 servings, so portions scale directly from kilograms available — capped so a single dish never claims more than 45% of one vegetable, and rounded to batch sizes a kitchen can actually run. Nutrition is an approximate per-portion estimate.",
+    zh: "每月剩食數據來自合作社的收成紀錄。每道食譜記錄「每 100 份」的用量,因此份數可直接由可用公斤數換算 —— 單一道菜最多只取用某種蔬菜的 45%,並取整為廚房實際能出的批量。營養為每份的近似估算值。",
+  },
 } as const;
 
 export type TranslationKey = keyof typeof translations;
