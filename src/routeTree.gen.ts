@@ -18,6 +18,7 @@ import { Route as BoxRouteImport } from './routes/box'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SystemIndexRouteImport } from './routes/system.index'
 import { Route as SystemSupplyRouteImport } from './routes/system.supply'
+import { Route as SystemMatchRouteImport } from './routes/system.match'
 
 const SystemRoute = SystemRouteImport.update({
   id: '/system',
@@ -64,6 +65,11 @@ const SystemSupplyRoute = SystemSupplyRouteImport.update({
   path: '/supply',
   getParentRoute: () => SystemRoute,
 } as any)
+const SystemMatchRoute = SystemMatchRouteImport.update({
+  id: '/match',
+  path: '/match',
+  getParentRoute: () => SystemRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
   '/system': typeof SystemRouteWithChildren
+  '/system/match': typeof SystemMatchRoute
   '/system/supply': typeof SystemSupplyRoute
   '/system/': typeof SystemIndexRoute
 }
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/join': typeof JoinRoute
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
+  '/system/match': typeof SystemMatchRoute
   '/system/supply': typeof SystemSupplyRoute
   '/system': typeof SystemIndexRoute
 }
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
   '/system': typeof SystemRouteWithChildren
+  '/system/match': typeof SystemMatchRoute
   '/system/supply': typeof SystemSupplyRoute
   '/system/': typeof SystemIndexRoute
 }
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/mission'
     | '/seasons'
     | '/system'
+    | '/system/match'
     | '/system/supply'
     | '/system/'
   fileRoutesByTo: FileRoutesByTo
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/join'
     | '/mission'
     | '/seasons'
+    | '/system/match'
     | '/system/supply'
     | '/system'
   id:
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/mission'
     | '/seasons'
     | '/system'
+    | '/system/match'
     | '/system/supply'
     | '/system/'
   fileRoutesById: FileRoutesById
@@ -208,15 +220,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SystemSupplyRouteImport
       parentRoute: typeof SystemRoute
     }
+    '/system/match': {
+      id: '/system/match'
+      path: '/match'
+      fullPath: '/system/match'
+      preLoaderRoute: typeof SystemMatchRouteImport
+      parentRoute: typeof SystemRoute
+    }
   }
 }
 
 interface SystemRouteChildren {
+  SystemMatchRoute: typeof SystemMatchRoute
   SystemSupplyRoute: typeof SystemSupplyRoute
   SystemIndexRoute: typeof SystemIndexRoute
 }
 
 const SystemRouteChildren: SystemRouteChildren = {
+  SystemMatchRoute: SystemMatchRoute,
   SystemSupplyRoute: SystemSupplyRoute,
   SystemIndexRoute: SystemIndexRoute,
 }
