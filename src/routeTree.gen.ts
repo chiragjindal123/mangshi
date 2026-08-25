@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SystemRouteImport } from './routes/system'
 import { Route as SeasonsRouteImport } from './routes/seasons'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as JoinRouteImport } from './routes/join'
@@ -16,6 +17,11 @@ import { Route as CultureRouteImport } from './routes/culture'
 import { Route as BoxRouteImport } from './routes/box'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SystemRoute = SystemRouteImport.update({
+  id: '/system',
+  path: '/system',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SeasonsRoute = SeasonsRouteImport.update({
   id: '/seasons',
   path: '/seasons',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/join': typeof JoinRoute
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
+  '/system': typeof SystemRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/join': typeof JoinRoute
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
+  '/system': typeof SystemRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,13 +79,29 @@ export interface FileRoutesById {
   '/join': typeof JoinRoute
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
+  '/system': typeof SystemRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/box' | '/culture' | '/join' | '/mission' | '/seasons'
+  fullPaths:
+    | '/'
+    | '/box'
+    | '/culture'
+    | '/join'
+    | '/mission'
+    | '/seasons'
+    | '/system'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/box' | '/culture' | '/join' | '/mission' | '/seasons'
-  id: '__root__' | '/' | '/box' | '/culture' | '/join' | '/mission' | '/seasons'
+  to: '/' | '/box' | '/culture' | '/join' | '/mission' | '/seasons' | '/system'
+  id:
+    | '__root__'
+    | '/'
+    | '/box'
+    | '/culture'
+    | '/join'
+    | '/mission'
+    | '/seasons'
+    | '/system'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -87,10 +111,18 @@ export interface RootRouteChildren {
   JoinRoute: typeof JoinRoute
   MissionRoute: typeof MissionRoute
   SeasonsRoute: typeof SeasonsRoute
+  SystemRoute: typeof SystemRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/system': {
+      id: '/system'
+      path: '/system'
+      fullPath: '/system'
+      preLoaderRoute: typeof SystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/seasons': {
       id: '/seasons'
       path: '/seasons'
@@ -143,6 +175,7 @@ const rootRouteChildren: RootRouteChildren = {
   JoinRoute: JoinRoute,
   MissionRoute: MissionRoute,
   SeasonsRoute: SeasonsRoute,
+  SystemRoute: SystemRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
