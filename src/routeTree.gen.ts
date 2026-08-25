@@ -17,6 +17,7 @@ import { Route as CultureRouteImport } from './routes/culture'
 import { Route as BoxRouteImport } from './routes/box'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SystemIndexRouteImport } from './routes/system.index'
+import { Route as SystemSupplyRouteImport } from './routes/system.supply'
 
 const SystemRoute = SystemRouteImport.update({
   id: '/system',
@@ -58,6 +59,11 @@ const SystemIndexRoute = SystemIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SystemRoute,
 } as any)
+const SystemSupplyRoute = SystemSupplyRouteImport.update({
+  id: '/supply',
+  path: '/supply',
+  getParentRoute: () => SystemRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
   '/system': typeof SystemRouteWithChildren
+  '/system/supply': typeof SystemSupplyRoute
   '/system/': typeof SystemIndexRoute
 }
 export interface FileRoutesByTo {
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/join': typeof JoinRoute
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
+  '/system/supply': typeof SystemSupplyRoute
   '/system': typeof SystemIndexRoute
 }
 export interface FileRoutesById {
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
   '/system': typeof SystemRouteWithChildren
+  '/system/supply': typeof SystemSupplyRoute
   '/system/': typeof SystemIndexRoute
 }
 export interface FileRouteTypes {
@@ -99,9 +108,18 @@ export interface FileRouteTypes {
     | '/mission'
     | '/seasons'
     | '/system'
+    | '/system/supply'
     | '/system/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/box' | '/culture' | '/join' | '/mission' | '/seasons' | '/system'
+  to:
+    | '/'
+    | '/box'
+    | '/culture'
+    | '/join'
+    | '/mission'
+    | '/seasons'
+    | '/system/supply'
+    | '/system'
   id:
     | '__root__'
     | '/'
@@ -111,6 +129,7 @@ export interface FileRouteTypes {
     | '/mission'
     | '/seasons'
     | '/system'
+    | '/system/supply'
     | '/system/'
   fileRoutesById: FileRoutesById
 }
@@ -182,14 +201,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SystemIndexRouteImport
       parentRoute: typeof SystemRoute
     }
+    '/system/supply': {
+      id: '/system/supply'
+      path: '/supply'
+      fullPath: '/system/supply'
+      preLoaderRoute: typeof SystemSupplyRouteImport
+      parentRoute: typeof SystemRoute
+    }
   }
 }
 
 interface SystemRouteChildren {
+  SystemSupplyRoute: typeof SystemSupplyRoute
   SystemIndexRoute: typeof SystemIndexRoute
 }
 
 const SystemRouteChildren: SystemRouteChildren = {
+  SystemSupplyRoute: SystemSupplyRoute,
   SystemIndexRoute: SystemIndexRoute,
 }
 
