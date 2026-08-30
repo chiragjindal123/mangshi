@@ -67,7 +67,7 @@ export const getSystemData = createServerFn({ method: "GET" }).handler(async () 
 });
 
 export const addSupply = createServerFn({ method: "POST" })
-  .inputValidator((input: {
+  .validator((input: {
     farmer_name: string;
     veg_key: string;
     name_zh: string;
@@ -98,7 +98,7 @@ export const addSupply = createServerFn({ method: "POST" })
   });
 
 export const addPreorder = createServerFn({ method: "POST" })
-  .inputValidator((input: { campus: string; portions: number }) => {
+  .validator((input: { campus: string; portions: number }) => {
     const portions = Math.round(Number(input.portions));
     if (!Number.isFinite(portions) || portions <= 0 || portions > 5000) {
       throw new Error("Invalid preorder");
