@@ -6,6 +6,8 @@ import heroSteam from "@/assets/hero-steam.jpg";
 import cultureHands from "@/assets/culture-hands.jpg";
 import boxSealed from "@/assets/box-sealed.jpg";
 import missionFarm from "@/assets/mission-farm.jpg";
+import sealedBoxHands from "@/assets/sealed-box-hands-v2.png";
+import hakkaTable from "@/assets/hakka-table.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -177,6 +179,32 @@ function Home() {
             <span>{t("home.mission.cta")}</span>
             <span className="block w-8 h-px bg-indigo-dye transition-all duration-500 group-hover:w-12" />
           </Link>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-paper py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-6 md:px-8">
+          <div className="mb-8 flex items-end justify-between gap-6">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-clay">Mangshi / system</p>
+              <h2 className="mt-3 font-display text-4xl sm:text-5xl">盒子背後的系統</h2>
+            </div>
+            <Link to="/system" className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-indigo-dye hover:text-foreground">
+              {t("nav.system")} →
+            </Link>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Link to="/system" className="group relative min-h-72 overflow-hidden">
+              <img src={sealedBoxHands} alt="Student holding a sealed lunch box" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-foreground/35" />
+              <div className="relative flex min-h-72 items-end p-6 text-paper"><p className="font-display text-3xl">收成，成為一餐。</p></div>
+            </Link>
+            <Link to="/system/match" className="group relative min-h-72 overflow-hidden">
+              <img src={hakkaTable} alt="Simple Hakka dishes set on a table" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-foreground/35" />
+              <div className="relative flex min-h-72 items-end p-6 text-paper"><p className="font-display text-3xl">每一口，都有來處。</p></div>
+            </Link>
+          </div>
         </div>
       </section>
 

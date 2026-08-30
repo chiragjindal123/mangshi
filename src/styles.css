@@ -36,6 +36,7 @@
   --color-indigo-dye: var(--indigo-dye);
   --color-sage: var(--sage);
   --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-display-zh: "Noto Serif TC", "Songti TC", serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
@@ -105,6 +106,10 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+  }
+
+  :lang(zh) .font-display {
+    font-family: var(--font-display-zh);
   }
 
   body {

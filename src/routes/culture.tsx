@@ -4,8 +4,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { useLang } from "@/lib/i18n";
 import type { TranslationKey } from "@/lib/translations";
 import cultureHands from "@/assets/culture-hands.jpg";
-import cultureVillage from "@/assets/culture-village.jpg";
 import ingredients from "@/assets/ingredients.jpg";
+import picklingJars from "@/assets/pickling-jars.png";
 
 export const Route = createFileRoute("/culture")({
   head: () => ({
@@ -59,12 +59,12 @@ function Culture() {
       {/* FULL-BLEED IMAGE */}
       <section className="px-6 md:px-8">
         <img
-          src={cultureVillage}
-          alt="Traditional Hakka village courtyard with pickling jars and indigo textiles"
+          src={picklingJars}
+          alt="Traditional Hakka pickling jars in a warm kitchen"
           loading="lazy"
-          width={1400}
-          height={1000}
-          className="w-full aspect-[16/9] object-cover"
+          width={1024}
+          height={1536}
+          className="w-full aspect-[16/7] object-cover object-[center_58%]"
         />
         <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.3em] text-clay/70">
           {t("culture.caption")}

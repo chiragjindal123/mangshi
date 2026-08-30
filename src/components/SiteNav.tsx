@@ -9,6 +9,7 @@ export function SiteNav() {
   const [open, setOpen] = useState(false);
 
   const links = [
+    { to: "/system", label: t("nav.system") },
     { to: "/culture", label: t("nav.culture") },
     { to: "/box", label: t("nav.box") },
     { to: "/mission", label: t("nav.mission") },
@@ -35,16 +36,6 @@ export function SiteNav() {
     >
       <button
         type="button"
-        onClick={() => setLang("en")}
-        aria-pressed={lang === "en"}
-        className={`px-2.5 py-1 transition-colors ${
-          lang === "en" ? "bg-foreground text-background" : "text-clay hover:text-foreground"
-        }`}
-      >
-        EN
-      </button>
-      <button
-        type="button"
         onClick={() => setLang("zh")}
         aria-pressed={lang === "zh"}
         className={`px-2.5 py-1 transition-colors ${
@@ -52,6 +43,16 @@ export function SiteNav() {
         }`}
       >
         中
+      </button>
+      <button
+        type="button"
+        onClick={() => setLang("en")}
+        aria-pressed={lang === "en"}
+        className={`px-2.5 py-1 transition-colors ${
+          lang === "en" ? "bg-foreground text-background" : "text-clay hover:text-foreground"
+        }`}
+      >
+        EN
       </button>
     </div>
   );

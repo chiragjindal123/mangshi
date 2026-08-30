@@ -28,6 +28,9 @@ export function SiteFooter() {
           <Link to="/culture" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.culture")}
           </Link>
+          <Link to="/system" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
+            {t("nav.system")}
+          </Link>
           <Link to="/box" className="text-sm hover:text-indigo-dye transition-colors duration-300 w-fit">
             {t("footer.link.box")}
           </Link>

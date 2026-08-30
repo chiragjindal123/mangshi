@@ -347,8 +347,8 @@ export const translations = {
     zh: "剩食進來,菜單、公克與營養出去。",
   },
   "seasons.method.body": {
-    en: "Monthly surplus figures come from cooperative harvest records. Each recipe stores quantities per 100 servings, so portions scale directly from kilograms available — capped so a single dish never claims more than 45% of one vegetable, and rounded to batch sizes a kitchen can actually run. Nutrition is an approximate per-portion estimate.",
-    zh: "每月剩食數據來自合作社的收成紀錄。每道食譜記錄「每 100 份」的用量,因此份數可直接由可用公斤數換算 —— 單一道菜最多只取用某種蔬菜的 45%,並取整為廚房實際能出的批量。營養為每份的近似估算值。",
+    en: "Monthly surplus figures come from cooperative harvest records. Each recipe stores quantities per 100 servings, so portions scale directly from kilograms available — capped so a single dish never claims more than 50% of one vegetable, and rounded to batch sizes a kitchen can actually run. Nutrition is an approximate per-portion estimate.",
+    zh: "每月剩食數據來自合作社的收成紀錄。每道食譜記錄「每 100 份」的用量,因此份數可直接由可用公斤數換算 —— 單一道菜最多只取用某種蔬菜的 50%,並取整為廚房實際能出的批量。營養為每份的近似估算值。",
   },
   // ---------- SYSTEM ----------
   "nav.system": { en: "System", zh: "系統" },

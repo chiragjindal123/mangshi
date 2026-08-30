@@ -9,41 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SystemRouteImport } from './routes/system'
-import { Route as SeasonsRouteImport } from './routes/seasons'
-import { Route as MissionRouteImport } from './routes/mission'
-import { Route as JoinRouteImport } from './routes/join'
-import { Route as CultureRouteImport } from './routes/culture'
-import { Route as BoxRouteImport } from './routes/box'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BoxRouteImport } from './routes/box'
+import { Route as CultureRouteImport } from './routes/culture'
+import { Route as JoinRouteImport } from './routes/join'
+import { Route as MissionRouteImport } from './routes/mission'
+import { Route as SeasonsRouteImport } from './routes/seasons'
+import { Route as SystemRouteImport } from './routes/system'
 import { Route as SystemIndexRouteImport } from './routes/system.index'
-import { Route as SystemSupplyRouteImport } from './routes/system.supply'
-import { Route as SystemMatchRouteImport } from './routes/system.match'
+import { Route as SystemImpactRouteImport } from './routes/system.impact'
 import { Route as SystemKitchenRouteImport } from './routes/system.kitchen'
+import { Route as SystemMatchRouteImport } from './routes/system.match'
+import { Route as SystemSupplyRouteImport } from './routes/system.supply'
 
-const SystemRoute = SystemRouteImport.update({
-  id: '/system',
-  path: '/system',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SeasonsRoute = SeasonsRouteImport.update({
-  id: '/seasons',
-  path: '/seasons',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MissionRoute = MissionRouteImport.update({
-  id: '/mission',
-  path: '/mission',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JoinRoute = JoinRouteImport.update({
-  id: '/join',
-  path: '/join',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CultureRoute = CultureRouteImport.update({
-  id: '/culture',
-  path: '/culture',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BoxRoute = BoxRouteImport.update({
@@ -51,9 +32,29 @@ const BoxRoute = BoxRouteImport.update({
   path: '/box',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const CultureRoute = CultureRouteImport.update({
+  id: '/culture',
+  path: '/culture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinRoute = JoinRouteImport.update({
+  id: '/join',
+  path: '/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionRoute = MissionRouteImport.update({
+  id: '/mission',
+  path: '/mission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeasonsRoute = SeasonsRouteImport.update({
+  id: '/seasons',
+  path: '/seasons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SystemRoute = SystemRouteImport.update({
+  id: '/system',
+  path: '/system',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SystemIndexRoute = SystemIndexRouteImport.update({
@@ -61,9 +62,14 @@ const SystemIndexRoute = SystemIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SystemRoute,
 } as any)
-const SystemSupplyRoute = SystemSupplyRouteImport.update({
-  id: '/supply',
-  path: '/supply',
+const SystemImpactRoute = SystemImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
+  getParentRoute: () => SystemRoute,
+} as any)
+const SystemKitchenRoute = SystemKitchenRouteImport.update({
+  id: '/kitchen',
+  path: '/kitchen',
   getParentRoute: () => SystemRoute,
 } as any)
 const SystemMatchRoute = SystemMatchRouteImport.update({
@@ -71,9 +77,9 @@ const SystemMatchRoute = SystemMatchRouteImport.update({
   path: '/match',
   getParentRoute: () => SystemRoute,
 } as any)
-const SystemKitchenRoute = SystemKitchenRouteImport.update({
-  id: '/kitchen',
-  path: '/kitchen',
+const SystemSupplyRoute = SystemSupplyRouteImport.update({
+  id: '/supply',
+  path: '/supply',
   getParentRoute: () => SystemRoute,
 } as any)
 
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
   '/system': typeof SystemRouteWithChildren
+  '/system/impact': typeof SystemImpactRoute
   '/system/kitchen': typeof SystemKitchenRoute
   '/system/match': typeof SystemMatchRoute
   '/system/supply': typeof SystemSupplyRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/join': typeof JoinRoute
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
+  '/system/impact': typeof SystemImpactRoute
   '/system/kitchen': typeof SystemKitchenRoute
   '/system/match': typeof SystemMatchRoute
   '/system/supply': typeof SystemSupplyRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/mission': typeof MissionRoute
   '/seasons': typeof SeasonsRoute
   '/system': typeof SystemRouteWithChildren
+  '/system/impact': typeof SystemImpactRoute
   '/system/kitchen': typeof SystemKitchenRoute
   '/system/match': typeof SystemMatchRoute
   '/system/supply': typeof SystemSupplyRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/mission'
     | '/seasons'
     | '/system'
+    | '/system/impact'
     | '/system/kitchen'
     | '/system/match'
     | '/system/supply'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/join'
     | '/mission'
     | '/seasons'
+    | '/system/impact'
     | '/system/kitchen'
     | '/system/match'
     | '/system/supply'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/mission'
     | '/seasons'
     | '/system'
+    | '/system/impact'
     | '/system/kitchen'
     | '/system/match'
     | '/system/supply'
@@ -169,39 +181,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/system': {
-      id: '/system'
-      path: '/system'
-      fullPath: '/system'
-      preLoaderRoute: typeof SystemRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/seasons': {
-      id: '/seasons'
-      path: '/seasons'
-      fullPath: '/seasons'
-      preLoaderRoute: typeof SeasonsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mission': {
-      id: '/mission'
-      path: '/mission'
-      fullPath: '/mission'
-      preLoaderRoute: typeof MissionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/join': {
-      id: '/join'
-      path: '/join'
-      fullPath: '/join'
-      preLoaderRoute: typeof JoinRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/culture': {
-      id: '/culture'
-      path: '/culture'
-      fullPath: '/culture'
-      preLoaderRoute: typeof CultureRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/box': {
@@ -211,11 +195,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BoxRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/culture': {
+      id: '/culture'
+      path: '/culture'
+      fullPath: '/culture'
+      preLoaderRoute: typeof CultureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join': {
+      id: '/join'
+      path: '/join'
+      fullPath: '/join'
+      preLoaderRoute: typeof JoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mission': {
+      id: '/mission'
+      path: '/mission'
+      fullPath: '/mission'
+      preLoaderRoute: typeof MissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seasons': {
+      id: '/seasons'
+      path: '/seasons'
+      fullPath: '/seasons'
+      preLoaderRoute: typeof SeasonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/system': {
+      id: '/system'
+      path: '/system'
+      fullPath: '/system'
+      preLoaderRoute: typeof SystemRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/system/': {
@@ -225,18 +237,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SystemIndexRouteImport
       parentRoute: typeof SystemRoute
     }
-    '/system/supply': {
-      id: '/system/supply'
-      path: '/supply'
-      fullPath: '/system/supply'
-      preLoaderRoute: typeof SystemSupplyRouteImport
-      parentRoute: typeof SystemRoute
-    }
-    '/system/match': {
-      id: '/system/match'
-      path: '/match'
-      fullPath: '/system/match'
-      preLoaderRoute: typeof SystemMatchRouteImport
+    '/system/impact': {
+      id: '/system/impact'
+      path: '/impact'
+      fullPath: '/system/impact'
+      preLoaderRoute: typeof SystemImpactRouteImport
       parentRoute: typeof SystemRoute
     }
     '/system/kitchen': {
@@ -246,10 +251,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SystemKitchenRouteImport
       parentRoute: typeof SystemRoute
     }
+    '/system/match': {
+      id: '/system/match'
+      path: '/match'
+      fullPath: '/system/match'
+      preLoaderRoute: typeof SystemMatchRouteImport
+      parentRoute: typeof SystemRoute
+    }
+    '/system/supply': {
+      id: '/system/supply'
+      path: '/supply'
+      fullPath: '/system/supply'
+      preLoaderRoute: typeof SystemSupplyRouteImport
+      parentRoute: typeof SystemRoute
+    }
   }
 }
 
 interface SystemRouteChildren {
+  SystemImpactRoute: typeof SystemImpactRoute
   SystemKitchenRoute: typeof SystemKitchenRoute
   SystemMatchRoute: typeof SystemMatchRoute
   SystemSupplyRoute: typeof SystemSupplyRoute
@@ -257,6 +277,7 @@ interface SystemRouteChildren {
 }
 
 const SystemRouteChildren: SystemRouteChildren = {
+  SystemImpactRoute: SystemImpactRoute,
   SystemKitchenRoute: SystemKitchenRoute,
   SystemMatchRoute: SystemMatchRoute,
   SystemSupplyRoute: SystemSupplyRoute,

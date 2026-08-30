@@ -5,6 +5,7 @@ import { useLang } from "@/lib/i18n";
 import type { TranslationKey } from "@/lib/translations";
 import missionFarm from "@/assets/mission-farm.jpg";
 import ingredients from "@/assets/ingredients.jpg";
+import { CountUp } from "@/components/Reveal";
 
 export const Route = createFileRoute("/mission")({
   head: () => ({
@@ -28,11 +29,11 @@ export const Route = createFileRoute("/mission")({
   component: Mission,
 });
 
-const stats: Array<{ figure: string; labelKey: TranslationKey; bodyKey: TranslationKey }> = [
-  { figure: "94%", labelKey: "mission.stat1.label", bodyKey: "mission.stat1.body" },
-  { figure: "NT$10", labelKey: "mission.stat2.label", bodyKey: "mission.stat2.body" },
-  { figure: "330k T", labelKey: "mission.stat3.label", bodyKey: "mission.stat3.body" },
-  { figure: "1,600", labelKey: "mission.stat4.label", bodyKey: "mission.stat4.body" },
+const stats: Array<{ value: number; prefix?: string; suffix?: string; labelKey: TranslationKey; bodyKey: TranslationKey }> = [
+  { value: 94, suffix: "%", labelKey: "mission.stat1.label", bodyKey: "mission.stat1.body" },
+  { value: 10, prefix: "NT$", labelKey: "mission.stat2.label", bodyKey: "mission.stat2.body" },
+  { value: 330, suffix: "k T", labelKey: "mission.stat3.label", bodyKey: "mission.stat3.body" },
+  { value: 1600, labelKey: "mission.stat4.label", bodyKey: "mission.stat4.body" },
 ];
 
 const loop: Array<{ titleKey: TranslationKey; bodyKey: TranslationKey }> = [
@@ -92,7 +93,7 @@ function Mission() {
             {stats.map((s) => (
               <article key={s.labelKey} className="border-t border-foreground/10 pt-8">
                 <p className="font-display italic text-7xl md:text-8xl text-indigo-dye leading-none">
-                  {s.figure}
+                  {s.prefix}<CountUp to={s.value} suffix={s.suffix} />
                 </p>
                 <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-clay">
                   {t(s.labelKey)}

@@ -73,6 +73,8 @@ export const addSupply = createServerFn({ method: "POST" })
     name_zh: string;
     name_en: string;
     kg: number;
+    available_from?: string;
+    available_to?: string;
   }) => {
     const kg = Number(input.kg);
     if (!input.veg_key || !Number.isFinite(kg) || kg <= 0 || kg > 5000) {
@@ -84,6 +86,8 @@ export const addSupply = createServerFn({ method: "POST" })
       name_zh: String(input.name_zh).slice(0, 40),
       name_en: String(input.name_en).slice(0, 60),
       kg: Math.round(kg * 10) / 10,
+      available_from: input.available_from || new Date().toISOString().slice(0, 10),
+      available_to: input.available_to || new Date().toISOString().slice(0, 10),
     };
   })
   .handler(async ({ data }) => {

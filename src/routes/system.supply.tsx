@@ -39,6 +39,8 @@ function SupplyScreen() {
   const [farmer, setFarmer] = useState("");
   const [veg, setVeg] = useState<string>(VEG_OPTIONS[0].veg_key);
   const [kg, setKg] = useState("");
+  const [availableFrom, setAvailableFrom] = useState(() => new Date().toISOString().slice(0, 10));
+  const [availableTo, setAvailableTo] = useState(() => new Date().toISOString().slice(0, 10));
   const [state, setState] = useState<"idle" | "saving" | "saved">("idle");
 
   const [campus, setCampus] = useState("");
@@ -54,7 +56,15 @@ function SupplyScreen() {
     if (!Number.isFinite(n) || n <= 0) return;
     setState("saving");
     await submitSupply({
-      data: { farmer_name: farmer, veg_key: v.veg_key, name_zh: v.name_zh, name_en: v.name_en, kg: n },
+      data: {
+        farmer_name: farmer,
+        veg_key: v.veg_key,
+        name_zh: v.name_zh,
+        name_en: v.name_en,
+        kg: n,
+        available_from: availableFrom,
+        available_to: availableTo,
+      },
     });
     await qc.invalidateQueries({ queryKey: ["system-data"] });
     setKg("");
@@ -121,6 +131,29 @@ function SupplyScreen() {
                   value={kg}
                   onChange={(e) => setKg(e.target.value)}
                   placeholder="120"
+                />
+              </label>
+              <label className="block">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay">
+                  {lang === "zh" ? "可取開始日" : "Available from"}
+                </span>
+                <input
+                  type="date"
+                  className={field}
+                  value={availableFrom}
+                  onChange={(e) => setAvailableFrom(e.target.value)}
+                />
+              </label>
+              <label className="block">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay">
+                  {lang === "zh" ? "可取結束日" : "Available until"}
+                </span>
+                <input
+                  type="date"
+                  min={availableFrom}
+                  className={field}
+                  value={availableTo}
+                  onChange={(e) => setAvailableTo(e.target.value)}
                 />
               </label>
             </div>
