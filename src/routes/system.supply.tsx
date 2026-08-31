@@ -1,11 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useLang } from "@/lib/i18n";
 import { Reveal } from "@/components/Reveal";
-import { systemQueryOptions } from "@/lib/systemQuery";
-import { addPreorder, addSupply } from "@/lib/system.functions";
+import {
+  systemQueryOptions,
+  recordSupplyDelete,
+  recordSupplyUpdate,
+  recordPreorderDelete,
+  recordPreorderUpdate,
+} from "@/lib/systemQuery";
+import {
+  addPreorder,
+  addSupply,
+  deleteSupply,
+  updateSupply,
+  deletePreorder,
+  updatePreorder,
+} from "@/lib/system.functions";
 import { VEG_OPTIONS } from "@/lib/matching";
 
 export const Route = createFileRoute("/system/supply")({
@@ -29,12 +42,89 @@ export const Route = createFileRoute("/system/supply")({
   component: SupplyScreen,
 });
 
+/* ------------------------------------------------------------------ */
+/*  Kebab (⋮) dropdown                                                */
+/* ------------------------------------------------------------------ */
+
+function KebabMenu({
+  onEdit,
+  onDelete,
+  editLabel,
+  deleteLabel,
+}: {
+  onEdit: () => void;
+  onDelete: () => void;
+  editLabel: string;
+  deleteLabel: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative shrink-0">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="p-1.5 rounded hover:bg-border/60 transition-colors text-clay hover:text-foreground"
+        aria-label="Actions"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <circle cx="8" cy="3" r="1.5" />
+          <circle cx="8" cy="8" r="1.5" />
+          <circle cx="8" cy="13" r="1.5" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full mt-1 z-20 min-w-[120px] border border-border bg-background shadow-lg">
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              onEdit();
+            }}
+            className="w-full text-left px-4 py-2.5 text-sm hover:bg-border/40 transition-colors"
+          >
+            {editLabel}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              onDelete();
+            }}
+            className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+          >
+            {deleteLabel}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Main screen                                                        */
+/* ------------------------------------------------------------------ */
+
 function SupplyScreen() {
   const { t, lang } = useLang();
   const qc = useQueryClient();
   const { data } = useQuery(systemQueryOptions);
   const submitSupply = useServerFn(addSupply);
   const submitOrder = useServerFn(addPreorder);
+  const execDeleteSupply = useServerFn(deleteSupply);
+  const execUpdateSupply = useServerFn(updateSupply);
+  const execDeletePreorder = useServerFn(deletePreorder);
+  const execUpdatePreorder = useServerFn(updatePreorder);
 
   const [farmer, setFarmer] = useState("");
   const [veg, setVeg] = useState<string>(VEG_OPTIONS[0].veg_key);
@@ -47,7 +137,24 @@ function SupplyScreen() {
   const [portions, setPortions] = useState("");
   const [orderState, setOrderState] = useState<"idle" | "saving" | "saved">("idle");
 
+  // Edit/delete state for supply rows
+  const [editingSupplyId, setEditingSupplyId] = useState<string | null>(null);
+  const [editSupplyKg, setEditSupplyKg] = useState("");
+  const [editSupplyFarmer, setEditSupplyFarmer] = useState("");
+  const [editSupplyFrom, setEditSupplyFrom] = useState("");
+  const [editSupplyTo, setEditSupplyTo] = useState("");
+
+  // Edit/delete state for preorder rows
+  const [editingOrderId, setEditingOrderId] = useState<string | null>(null);
+  const [editOrderCampus, setEditOrderCampus] = useState("");
+  const [editOrderPortions, setEditOrderPortions] = useState("");
+
   const label = (zh: string, en: string) => (lang === "zh" ? zh : en);
+
+  const refresh = useCallback(
+    () => qc.invalidateQueries({ queryKey: ["system-data"] }),
+    [qc],
+  );
 
   const onSupply = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,7 +173,7 @@ function SupplyScreen() {
         available_to: availableTo,
       },
     });
-    await qc.invalidateQueries({ queryKey: ["system-data"] });
+    await refresh();
     setKg("");
     setState("saved");
   };
@@ -77,15 +184,103 @@ function SupplyScreen() {
     if (!Number.isFinite(n) || n <= 0) return;
     setOrderState("saving");
     await submitOrder({ data: { campus, portions: n } });
-    await qc.invalidateQueries({ queryKey: ["system-data"] });
+    await refresh();
     setPortions("");
     setOrderState("saved");
+  };
+
+  const handleDeleteSupply = async (id: string) => {
+    if (!window.confirm(t("sys.supply.confirmDelete"))) return;
+    recordSupplyDelete(id);
+    try {
+      await execDeleteSupply({ data: { id } });
+    } catch (e) {
+      console.warn("Server delete supply failed, local override applied", e);
+    }
+    await refresh();
+  };
+
+  const handleEditSupply = (s: {
+    id: string;
+    farmer_name: string;
+    kg: number;
+    available_from: string;
+    available_to: string;
+  }) => {
+    setEditingSupplyId(s.id);
+    setEditSupplyKg(String(s.kg));
+    setEditSupplyFarmer(s.farmer_name);
+    setEditSupplyFrom(s.available_from);
+    setEditSupplyTo(s.available_to);
+  };
+
+  const handleSaveSupply = async () => {
+    if (!editingSupplyId) return;
+    const n = Number(editSupplyKg);
+    if (!Number.isFinite(n) || n <= 0) return;
+    const patch = {
+      farmer_name: editSupplyFarmer,
+      kg: n,
+      available_from: editSupplyFrom,
+      available_to: editSupplyTo,
+    };
+    recordSupplyUpdate(editingSupplyId, patch);
+    try {
+      await execUpdateSupply({
+        data: {
+          id: editingSupplyId,
+          ...patch,
+        },
+      });
+    } catch (e) {
+      console.warn("Server update supply failed, local override applied", e);
+    }
+    setEditingSupplyId(null);
+    await refresh();
+  };
+
+  const handleDeletePreorder = async (id: string) => {
+    if (!window.confirm(t("sys.order.confirmDelete"))) return;
+    recordPreorderDelete(id);
+    try {
+      await execDeletePreorder({ data: { id } });
+    } catch (e) {
+      console.warn("Server delete preorder failed, local override applied", e);
+    }
+    await refresh();
+  };
+
+  const handleEditPreorder = (p: { id: string; campus: string; portions: number }) => {
+    setEditingOrderId(p.id);
+    setEditOrderCampus(p.campus);
+    setEditOrderPortions(String(p.portions));
+  };
+
+  const handleSavePreorder = async () => {
+    if (!editingOrderId) return;
+    const n = Number(editOrderPortions);
+    if (!Number.isFinite(n) || n <= 0) return;
+    const patch = { campus: editOrderCampus, portions: n };
+    recordPreorderUpdate(editingOrderId, patch);
+    try {
+      await execUpdatePreorder({
+        data: { id: editingOrderId, ...patch },
+      });
+    } catch (e) {
+      console.warn("Server update preorder failed, local override applied", e);
+    }
+    setEditingOrderId(null);
+    await refresh();
   };
 
   const field =
     "w-full bg-transparent border-b border-input py-2 text-sm focus:outline-none focus:border-foreground transition-colors";
   const btn =
     "mt-6 inline-flex items-center gap-2 border border-foreground px-6 py-3 text-[11px] uppercase tracking-[0.25em] hover:bg-foreground hover:text-background transition-colors disabled:opacity-50";
+  const inlineField =
+    "bg-transparent border-b border-input py-1 text-sm focus:outline-none focus:border-foreground transition-colors";
+  const smallBtn =
+    "px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] border transition-colors";
 
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16">
@@ -204,6 +399,7 @@ function SupplyScreen() {
         </Reveal>
       </div>
 
+      {/* ---- Supply list ---- */}
       <div className="mt-16 grid gap-10 lg:grid-cols-2">
         <div>
           <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-clay">
@@ -211,14 +407,77 @@ function SupplyScreen() {
           </h2>
           <ul className="mt-4 divide-y divide-border border-t border-border">
             {(data?.supply ?? []).map((s) => (
-              <li key={s.id} className="py-4 flex items-baseline justify-between gap-4">
-                <div>
-                  <p className="font-display text-xl">{lang === "zh" ? s.name_zh : s.name_en}</p>
-                  <p className="text-xs text-clay mt-1">
-                    {s.farmer_name} · {t("sys.supply.window")} {s.available_from} → {s.available_to}
-                  </p>
-                </div>
-                <p className="font-mono text-sm shrink-0">{Number(s.kg).toLocaleString()} kg</p>
+              <li key={s.id} className="py-4">
+                {editingSupplyId === s.id ? (
+                  /* ---- Inline edit mode ---- */
+                  <div className="space-y-3">
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <input
+                        className={inlineField}
+                        value={editSupplyFarmer}
+                        onChange={(e) => setEditSupplyFarmer(e.target.value)}
+                        placeholder={t("sys.supply.farmer")}
+                      />
+                      <input
+                        className={inlineField}
+                        inputMode="decimal"
+                        value={editSupplyKg}
+                        onChange={(e) => setEditSupplyKg(e.target.value)}
+                        placeholder="kg"
+                      />
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <input
+                        type="date"
+                        className={inlineField}
+                        value={editSupplyFrom}
+                        onChange={(e) => setEditSupplyFrom(e.target.value)}
+                      />
+                      <input
+                        type="date"
+                        className={inlineField}
+                        value={editSupplyTo}
+                        onChange={(e) => setEditSupplyTo(e.target.value)}
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={handleSaveSupply}
+                        className={`${smallBtn} border-foreground hover:bg-foreground hover:text-background`}
+                      >
+                        {t("sys.supply.save")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setEditingSupplyId(null)}
+                        className={`${smallBtn} border-border text-clay hover:border-foreground`}
+                      >
+                        {t("sys.supply.cancel")}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  /* ---- Normal display mode ---- */
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="min-w-0">
+                      <p className="font-display text-xl">{lang === "zh" ? s.name_zh : s.name_en}</p>
+                      <p className="text-xs text-clay mt-1">
+                        {s.farmer_name} · {t("sys.supply.window")} {s.available_from} →{" "}
+                        {s.available_to}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <p className="font-mono text-sm">{Number(s.kg).toLocaleString()} kg</p>
+                      <KebabMenu
+                        editLabel={t("sys.supply.edit")}
+                        deleteLabel={t("sys.supply.delete")}
+                        onEdit={() => handleEditSupply(s)}
+                        onDelete={() => handleDeleteSupply(s.id)}
+                      />
+                    </div>
+                  </div>
+                )}
               </li>
             ))}
             {(data?.supply ?? []).length === 0 && (
@@ -226,20 +485,70 @@ function SupplyScreen() {
             )}
           </ul>
         </div>
+
+        {/* ---- Preorder list ---- */}
         <div>
           <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-clay">
             {t("sys.order.list")}
           </h2>
           <ul className="mt-4 divide-y divide-border border-t border-border">
             {(data?.preorders ?? []).map((p) => (
-              <li key={p.id} className="py-4 flex items-baseline justify-between gap-4">
-                <div>
-                  <p className="font-display text-xl">{p.campus}</p>
-                  <p className="text-xs text-clay mt-1">{p.order_date}</p>
-                </div>
-                <p className="font-mono text-sm shrink-0">
-                  {p.portions} {t("sys.match.portions")}
-                </p>
+              <li key={p.id} className="py-4">
+                {editingOrderId === p.id ? (
+                  /* ---- Inline edit mode ---- */
+                  <div className="space-y-3">
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <input
+                        className={inlineField}
+                        value={editOrderCampus}
+                        onChange={(e) => setEditOrderCampus(e.target.value)}
+                        placeholder={t("sys.order.campus")}
+                      />
+                      <input
+                        className={inlineField}
+                        inputMode="numeric"
+                        value={editOrderPortions}
+                        onChange={(e) => setEditOrderPortions(e.target.value)}
+                        placeholder={t("sys.order.portions")}
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={handleSavePreorder}
+                        className={`${smallBtn} border-foreground hover:bg-foreground hover:text-background`}
+                      >
+                        {t("sys.supply.save")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setEditingOrderId(null)}
+                        className={`${smallBtn} border-border text-clay hover:border-foreground`}
+                      >
+                        {t("sys.supply.cancel")}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  /* ---- Normal display mode ---- */
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="font-display text-xl">{p.campus}</p>
+                      <p className="text-xs text-clay mt-1">{p.order_date}</p>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <p className="font-mono text-sm">
+                        {p.portions} {t("sys.match.portions")}
+                      </p>
+                      <KebabMenu
+                        editLabel={t("sys.order.edit")}
+                        deleteLabel={t("sys.order.delete")}
+                        onEdit={() => handleEditPreorder(p)}
+                        onDelete={() => handleDeletePreorder(p.id)}
+                      />
+                    </div>
+                  </div>
+                )}
               </li>
             ))}
           </ul>

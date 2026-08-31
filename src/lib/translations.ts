@@ -40,7 +40,7 @@ export const translations = {
   // ---------- HOME ----------
   "home.hero.kicker": { en: "The Hidden Harvest · 客家盲盒", zh: "隱藏的豐收 · 客家盲盒" },
   "home.hero.title1": { en: "The steam carries a memory", zh: "蒸氣承載著一段記憶" },
-  "home.hero.title2": { en: "you haven't lived yet.", zh: "那是你尚未經歷的記憶。" },
+  "home.hero.title2": { en: "you haven't lived yet.", zh: "那是你尚未經歷的記憶" },
   "home.hero.sub": {
     en: "A student-run kitchen rescuing surplus harvest from Taiwanese farms — served as Hakka heritage meals, sealed for surprise.",
     zh: "由學生經營的廚房,搶救台灣農場的剩食 —— 化為客家家鄉味,封盒成驚喜。",
@@ -385,12 +385,26 @@ export const translations = {
   "sys.supply.list": { en: "Available batches", zh: "可用批次" },
   "sys.supply.empty": { en: "No batches yet.", zh: "尚無批次。" },
   "sys.supply.window": { en: "Window", zh: "可取期間" },
+  "sys.supply.edit": { en: "Edit", zh: "編輯" },
+  "sys.supply.delete": { en: "Delete", zh: "刪除" },
+  "sys.supply.save": { en: "Save", zh: "儲存" },
+  "sys.supply.cancel": { en: "Cancel", zh: "取消" },
+  "sys.supply.confirmDelete": {
+    en: "Are you sure you want to delete this entry?",
+    zh: "確定要刪除這筆資料嗎？",
+  },
 
   "sys.order.title": { en: "Campus preorders", zh: "校園預訂" },
   "sys.order.campus": { en: "Campus", zh: "學校" },
   "sys.order.portions": { en: "Meals", zh: "餐盒數" },
   "sys.order.submit": { en: "Add preorder", zh: "新增預訂" },
   "sys.order.list": { en: "Confirmed preorders", zh: "已確認預訂" },
+  "sys.order.edit": { en: "Edit", zh: "編輯" },
+  "sys.order.delete": { en: "Delete", zh: "刪除" },
+  "sys.order.confirmDelete": {
+    en: "Are you sure you want to delete this preorder?",
+    zh: "確定要刪除這筆預訂嗎？",
+  },
 
   "sys.match.title": { en: "Dynamic menu matching", zh: "動態菜單配對" },
   "sys.match.body": {
