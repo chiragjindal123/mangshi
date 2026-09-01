@@ -405,85 +405,87 @@ function SupplyScreen() {
           <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-clay">
             {t("sys.supply.list")}
           </h2>
-          <ul className="mt-4 divide-y divide-border border-t border-border">
-            {(data?.supply ?? []).map((s) => (
-              <li key={s.id} className="py-4">
-                {editingSupplyId === s.id ? (
-                  /* ---- Inline edit mode ---- */
-                  <div className="space-y-3">
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <input
-                        className={inlineField}
-                        value={editSupplyFarmer}
-                        onChange={(e) => setEditSupplyFarmer(e.target.value)}
-                        placeholder={t("sys.supply.farmer")}
-                      />
-                      <input
-                        className={inlineField}
-                        inputMode="decimal"
-                        value={editSupplyKg}
-                        onChange={(e) => setEditSupplyKg(e.target.value)}
-                        placeholder="kg"
-                      />
+          <div className="mt-4 max-h-[380px] overflow-y-auto border-t border-border pr-1">
+            <ul className="divide-y divide-border">
+              {(data?.supply ?? []).map((s) => (
+                <li key={s.id} className="py-4">
+                  {editingSupplyId === s.id ? (
+                    /* ---- Inline edit mode ---- */
+                    <div className="space-y-3">
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <input
+                          className={inlineField}
+                          value={editSupplyFarmer}
+                          onChange={(e) => setEditSupplyFarmer(e.target.value)}
+                          placeholder={t("sys.supply.farmer")}
+                        />
+                        <input
+                          className={inlineField}
+                          inputMode="decimal"
+                          value={editSupplyKg}
+                          onChange={(e) => setEditSupplyKg(e.target.value)}
+                          placeholder="kg"
+                        />
+                      </div>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <input
+                          type="date"
+                          className={inlineField}
+                          value={editSupplyFrom}
+                          onChange={(e) => setEditSupplyFrom(e.target.value)}
+                        />
+                        <input
+                          type="date"
+                          className={inlineField}
+                          value={editSupplyTo}
+                          onChange={(e) => setEditSupplyTo(e.target.value)}
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={handleSaveSupply}
+                          className={`${smallBtn} border-foreground hover:bg-foreground hover:text-background`}
+                        >
+                          {t("sys.supply.save")}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditingSupplyId(null)}
+                          className={`${smallBtn} border-border text-clay hover:border-foreground`}
+                        >
+                          {t("sys.supply.cancel")}
+                        </button>
+                      </div>
                     </div>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <input
-                        type="date"
-                        className={inlineField}
-                        value={editSupplyFrom}
-                        onChange={(e) => setEditSupplyFrom(e.target.value)}
-                      />
-                      <input
-                        type="date"
-                        className={inlineField}
-                        value={editSupplyTo}
-                        onChange={(e) => setEditSupplyTo(e.target.value)}
-                      />
+                  ) : (
+                    /* ---- Normal display mode ---- */
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="min-w-0">
+                        <p className="font-display text-xl">{lang === "zh" ? s.name_zh : s.name_en}</p>
+                        <p className="text-xs text-clay mt-1">
+                          {s.farmer_name} · {t("sys.supply.window")} {s.available_from} →{" "}
+                          {s.available_to}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <p className="font-mono text-sm">{Number(s.kg).toLocaleString()} kg</p>
+                        <KebabMenu
+                          editLabel={t("sys.supply.edit")}
+                          deleteLabel={t("sys.supply.delete")}
+                          onEdit={() => handleEditSupply(s)}
+                          onDelete={() => handleDeleteSupply(s.id)}
+                        />
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <button
-                        type="button"
-                        onClick={handleSaveSupply}
-                        className={`${smallBtn} border-foreground hover:bg-foreground hover:text-background`}
-                      >
-                        {t("sys.supply.save")}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setEditingSupplyId(null)}
-                        className={`${smallBtn} border-border text-clay hover:border-foreground`}
-                      >
-                        {t("sys.supply.cancel")}
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  /* ---- Normal display mode ---- */
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="min-w-0">
-                      <p className="font-display text-xl">{lang === "zh" ? s.name_zh : s.name_en}</p>
-                      <p className="text-xs text-clay mt-1">
-                        {s.farmer_name} · {t("sys.supply.window")} {s.available_from} →{" "}
-                        {s.available_to}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <p className="font-mono text-sm">{Number(s.kg).toLocaleString()} kg</p>
-                      <KebabMenu
-                        editLabel={t("sys.supply.edit")}
-                        deleteLabel={t("sys.supply.delete")}
-                        onEdit={() => handleEditSupply(s)}
-                        onDelete={() => handleDeleteSupply(s.id)}
-                      />
-                    </div>
-                  </div>
-                )}
-              </li>
-            ))}
-            {(data?.supply ?? []).length === 0 && (
-              <li className="py-4 text-sm text-clay">{t("sys.supply.empty")}</li>
-            )}
-          </ul>
+                  )}
+                </li>
+              ))}
+              {(data?.supply ?? []).length === 0 && (
+                <li className="py-4 text-sm text-clay">{t("sys.supply.empty")}</li>
+              )}
+            </ul>
+          </div>
         </div>
 
         {/* ---- Preorder list ---- */}
@@ -491,8 +493,9 @@ function SupplyScreen() {
           <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-clay">
             {t("sys.order.list")}
           </h2>
-          <ul className="mt-4 divide-y divide-border border-t border-border">
-            {(data?.preorders ?? []).map((p) => (
+          <div className="mt-4 max-h-[380px] overflow-y-auto border-t border-border pr-1">
+            <ul className="divide-y divide-border">
+              {(data?.preorders ?? []).map((p) => (
               <li key={p.id} className="py-4">
                 {editingOrderId === p.id ? (
                   /* ---- Inline edit mode ---- */
@@ -554,6 +557,7 @@ function SupplyScreen() {
           </ul>
         </div>
       </div>
-    </main>
-  );
+    </div>
+  </main>
+);
 }

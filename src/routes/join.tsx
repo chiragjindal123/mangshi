@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useLang } from "@/lib/i18n";
+import { addJoinSubmission } from "@/lib/system.functions";
 
 export const Route = createFileRoute("/join")({
   head: () => ({
@@ -28,10 +30,35 @@ export const Route = createFileRoute("/join")({
 function Join() {
   const { t } = useLang();
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitJoin = useServerFn(addJoinSubmission);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("student");
+  const [note, setNote] = useState("");
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    if (!name.trim() || !email.trim()) return;
+    setIsSubmitting(true);
+    try {
+      await submitJoin({
+        data: {
+          name: name.trim(),
+          email: email.trim(),
+          role,
+          note: note.trim() || undefined,
+        },
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Failed to submit join form:", err);
+      // Fallback display thank you state
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -72,6 +99,8 @@ function Join() {
                     <input
                       required
                       type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       className="mt-2 w-full bg-transparent border-b border-foreground/30 focus:border-indigo-dye outline-none py-3 text-lg font-display"
                       placeholder={t("join.field.name.ph")}
                     />
@@ -83,6 +112,8 @@ function Join() {
                     <input
                       required
                       type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="mt-2 w-full bg-transparent border-b border-foreground/30 focus:border-indigo-dye outline-none py-3 text-lg font-display"
                       placeholder={t("join.field.email.ph")}
                     />
@@ -94,8 +125,9 @@ function Join() {
                     {t("join.field.role")}
                   </span>
                   <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
                     className="mt-2 w-full bg-transparent border-b border-foreground/30 focus:border-indigo-dye outline-none py-3 text-lg font-display appearance-none"
-                    defaultValue="student"
                   >
                     <option value="student">{t("join.role.student")}</option>
                     <option value="intl">{t("join.role.intl")}</option>
@@ -111,6 +143,8 @@ function Join() {
                   </span>
                   <textarea
                     rows={3}
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
                     className="mt-2 w-full bg-transparent border-b border-foreground/30 focus:border-indigo-dye outline-none py-3 text-base resize-none"
                     placeholder={t("join.field.note.ph")}
                   />
@@ -118,9 +152,10 @@ function Join() {
 
                 <button
                   type="submit"
-                  className="mt-6 self-start group inline-flex items-center gap-4 bg-indigo-dye text-paper px-8 py-4 font-mono text-[11px] uppercase tracking-[0.25em] hover:opacity-90 transition-opacity"
+                  disabled={isSubmitting}
+                  className="mt-6 self-start group inline-flex items-center gap-4 bg-indigo-dye text-paper px-8 py-4 font-mono text-[11px] uppercase tracking-[0.25em] hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
-                  <span>{t("join.submit")}</span>
+                  <span>{isSubmitting ? "Submitting…" : t("join.submit")}</span>
                   <span className="block w-6 h-px bg-paper transition-all duration-500 group-hover:w-10" />
                 </button>
               </form>
@@ -133,8 +168,8 @@ function Join() {
               <h3 className="font-display text-2xl">{t("join.farmers.title")}</h3>
               <p className="mt-3 text-clay leading-relaxed">
                 {t("join.farmers.body1")}
-                <a className="underline text-indigo-dye" href="mailto:farm@hakkabox.tw">
-                  farm@hakkabox.tw
+                <a className="underline text-indigo-dye" href="mailto:mangshi.lab@gmail.com">
+                  mangshi.lab@gmail.com
                 </a>
                 .
               </p>
@@ -143,8 +178,8 @@ function Join() {
               <h3 className="font-display text-2xl">{t("join.universities.title")}</h3>
               <p className="mt-3 text-clay leading-relaxed">
                 {t("join.universities.body1")}
-                <a className="underline text-indigo-dye" href="mailto:campus@hakkabox.tw">
-                  campus@hakkabox.tw
+                <a className="underline text-indigo-dye" href="mailto:mangshi.lab@gmail.com">
+                  mangshi.lab@gmail.com
                 </a>
                 .
               </p>

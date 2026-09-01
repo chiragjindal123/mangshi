@@ -98,12 +98,16 @@ export const addSupply = createServerFn({ method: "POST" })
   });
 
 export const addPreorder = createServerFn({ method: "POST" })
-  .validator((input: { campus: string; portions: number }) => {
+  .validator((input: { campus: string; portions: number; order_date?: string }) => {
     const portions = Math.round(Number(input.portions));
     if (!Number.isFinite(portions) || portions <= 0 || portions > 5000) {
       throw new Error("Invalid preorder");
     }
-    return { campus: String(input.campus || "").slice(0, 60) || "中央大學", portions };
+    return {
+      campus: String(input.campus || "").slice(0, 60) || "中央大學",
+      portions,
+      order_date: input.order_date || new Date().toISOString().slice(0, 10),
+    };
   })
   .handler(async ({ data }) => {
     const { publicServerClient } = await import("./db.server");
@@ -210,3 +214,34 @@ export const updatePreorder = createServerFn({ method: "POST" })
     if (error) throw error;
     return { ok: true };
   });
+
+export const addJoinSubmission = createServerFn({ method: "POST" })
+  .validator(
+    (input: {
+      name: string;
+      email: string;
+      role?: string;
+      note?: string;
+    }) => {
+      const name = String(input.name || "").trim().slice(0, 100);
+      const email = String(input.email || "").trim().slice(0, 150);
+      if (!name || !email) {
+        throw new Error("Name and email are required");
+      }
+      return {
+        name,
+        email,
+        role: String(input.role || "student").slice(0, 50),
+        note: input.note ? String(input.note).slice(0, 1000) : null,
+      };
+    },
+  )
+  .handler(async ({ data }) => {
+    const { publicServerClient } = await import("./db.server");
+    const { error } = await publicServerClient()
+      .from("join_submissions" as any)
+      .insert(data);
+    if (error) throw error;
+    return { ok: true };
+  });
+
