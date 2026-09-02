@@ -11,11 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BoxRouteImport } from './routes/box'
-import { Route as CultureRouteImport } from './routes/culture'
+import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as JoinRouteImport } from './routes/join'
-import { Route as MissionRouteImport } from './routes/mission'
-import { Route as SeasonsRouteImport } from './routes/seasons'
+import { Route as SurplusRouteImport } from './routes/surplus'
 import { Route as SystemRouteImport } from './routes/system'
+import { Route as TodayRouteImport } from './routes/today'
 import { Route as SystemIndexRouteImport } from './routes/system.index'
 import { Route as SystemImpactRouteImport } from './routes/system.impact'
 import { Route as SystemKitchenRouteImport } from './routes/system.kitchen'
@@ -32,9 +32,9 @@ const BoxRoute = BoxRouteImport.update({
   path: '/box',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CultureRoute = CultureRouteImport.update({
-  id: '/culture',
-  path: '/culture',
+const ImpactRoute = ImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JoinRoute = JoinRouteImport.update({
@@ -42,19 +42,19 @@ const JoinRoute = JoinRouteImport.update({
   path: '/join',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MissionRoute = MissionRouteImport.update({
-  id: '/mission',
-  path: '/mission',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SeasonsRoute = SeasonsRouteImport.update({
-  id: '/seasons',
-  path: '/seasons',
+const SurplusRoute = SurplusRouteImport.update({
+  id: '/surplus',
+  path: '/surplus',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SystemRoute = SystemRouteImport.update({
   id: '/system',
   path: '/system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TodayRoute = TodayRouteImport.update({
+  id: '/today',
+  path: '/today',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SystemIndexRoute = SystemIndexRouteImport.update({
@@ -86,11 +86,11 @@ const SystemSupplyRoute = SystemSupplyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/box': typeof BoxRoute
-  '/culture': typeof CultureRoute
+  '/impact': typeof ImpactRoute
   '/join': typeof JoinRoute
-  '/mission': typeof MissionRoute
-  '/seasons': typeof SeasonsRoute
+  '/surplus': typeof SurplusRoute
   '/system': typeof SystemRouteWithChildren
+  '/today': typeof TodayRoute
   '/system/impact': typeof SystemImpactRoute
   '/system/kitchen': typeof SystemKitchenRoute
   '/system/match': typeof SystemMatchRoute
@@ -100,10 +100,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/box': typeof BoxRoute
-  '/culture': typeof CultureRoute
+  '/impact': typeof ImpactRoute
   '/join': typeof JoinRoute
-  '/mission': typeof MissionRoute
-  '/seasons': typeof SeasonsRoute
+  '/surplus': typeof SurplusRoute
+  '/today': typeof TodayRoute
   '/system/impact': typeof SystemImpactRoute
   '/system/kitchen': typeof SystemKitchenRoute
   '/system/match': typeof SystemMatchRoute
@@ -114,11 +114,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/box': typeof BoxRoute
-  '/culture': typeof CultureRoute
+  '/impact': typeof ImpactRoute
   '/join': typeof JoinRoute
-  '/mission': typeof MissionRoute
-  '/seasons': typeof SeasonsRoute
+  '/surplus': typeof SurplusRoute
   '/system': typeof SystemRouteWithChildren
+  '/today': typeof TodayRoute
   '/system/impact': typeof SystemImpactRoute
   '/system/kitchen': typeof SystemKitchenRoute
   '/system/match': typeof SystemMatchRoute
@@ -130,11 +130,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/box'
-    | '/culture'
+    | '/impact'
     | '/join'
-    | '/mission'
-    | '/seasons'
+    | '/surplus'
     | '/system'
+    | '/today'
     | '/system/impact'
     | '/system/kitchen'
     | '/system/match'
@@ -144,10 +144,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/box'
-    | '/culture'
+    | '/impact'
     | '/join'
-    | '/mission'
-    | '/seasons'
+    | '/surplus'
+    | '/today'
     | '/system/impact'
     | '/system/kitchen'
     | '/system/match'
@@ -157,11 +157,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/box'
-    | '/culture'
+    | '/impact'
     | '/join'
-    | '/mission'
-    | '/seasons'
+    | '/surplus'
     | '/system'
+    | '/today'
     | '/system/impact'
     | '/system/kitchen'
     | '/system/match'
@@ -172,11 +172,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BoxRoute: typeof BoxRoute
-  CultureRoute: typeof CultureRoute
+  ImpactRoute: typeof ImpactRoute
   JoinRoute: typeof JoinRoute
-  MissionRoute: typeof MissionRoute
-  SeasonsRoute: typeof SeasonsRoute
+  SurplusRoute: typeof SurplusRoute
   SystemRoute: typeof SystemRouteWithChildren
+  TodayRoute: typeof TodayRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -195,11 +195,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BoxRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/culture': {
-      id: '/culture'
-      path: '/culture'
-      fullPath: '/culture'
-      preLoaderRoute: typeof CultureRouteImport
+    '/impact': {
+      id: '/impact'
+      path: '/impact'
+      fullPath: '/impact'
+      preLoaderRoute: typeof ImpactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/join': {
@@ -209,18 +209,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JoinRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mission': {
-      id: '/mission'
-      path: '/mission'
-      fullPath: '/mission'
-      preLoaderRoute: typeof MissionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/seasons': {
-      id: '/seasons'
-      path: '/seasons'
-      fullPath: '/seasons'
-      preLoaderRoute: typeof SeasonsRouteImport
+    '/surplus': {
+      id: '/surplus'
+      path: '/surplus'
+      fullPath: '/surplus'
+      preLoaderRoute: typeof SurplusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/system': {
@@ -228,6 +221,13 @@ declare module '@tanstack/react-router' {
       path: '/system'
       fullPath: '/system'
       preLoaderRoute: typeof SystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/today': {
+      id: '/today'
+      path: '/today'
+      fullPath: '/today'
+      preLoaderRoute: typeof TodayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/system/': {
@@ -290,11 +290,11 @@ const SystemRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BoxRoute: BoxRoute,
-  CultureRoute: CultureRoute,
+  ImpactRoute: ImpactRoute,
   JoinRoute: JoinRoute,
-  MissionRoute: MissionRoute,
-  SeasonsRoute: SeasonsRoute,
+  SurplusRoute: SurplusRoute,
   SystemRoute: SystemRouteWithChildren,
+  TodayRoute: TodayRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

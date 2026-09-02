@@ -7,24 +7,24 @@ import cultureHands from "@/assets/culture-hands.jpg";
 import ingredients from "@/assets/ingredients.jpg";
 import picklingJars from "@/assets/pickling-jars.png";
 
-export const Route = createFileRoute("/culture")({
+export const Route = createFileRoute("/today")({
   head: () => ({
     meta: [
-      { title: "Hakka Culture — Hakka Blind Box" },
+      { title: "Today — Mangshi 盲食" },
       {
         name: "description",
         content:
-          "Hakka heritage in Taiwan: pickling, preservation, indigo textiles, and the philosophy of wasting nothing.",
+          "Today's food culture: preservation, traditions, and a kitchen that refuses waste.",
       },
-      { property: "og:title", content: "Hakka Culture" },
+      { property: "og:title", content: "Today — Mangshi 盲食" },
       {
         property: "og:description",
         content:
-          "The mountain kitchen of Taiwan — preservation, indigo, and a cuisine that refuses waste.",
+          "Preservation, heritage, and a cuisine that refuses waste.",
       },
-      { property: "og:url", content: "/culture" },
+      { property: "og:url", content: "/today" },
     ],
-    links: [{ rel: "canonical", href: "/culture" }],
+    links: [{ rel: "canonical", href: "/today" }],
   }),
   component: Culture,
 });

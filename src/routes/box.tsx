@@ -1,24 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useLang } from "@/lib/i18n";
-import type { TranslationKey } from "@/lib/translations";
+import boxBlue from "@/assets/box-blue.png";
+import boxRed from "@/assets/box-red.png";
+import boxYellow from "@/assets/box-yellow.png";
 
 export const Route = createFileRoute("/box")({
   head: () => ({
     meta: [
-      { title: "The Blind Box — Hakka Blind Box" },
+      { title: "Today's Menu — Mangshi 盲食" },
       {
         name: "description",
         content:
-          "Every box shows only ingredients and nutrition — no dish photo, no name. Open one and see the philosophy behind the seal.",
+          "Tap to reveal today's meal — ingredients, allergens, pickup time and price. The dish stays a surprise until you open the lid.",
       },
-      { property: "og:title", content: "The Blind Box" },
+      { property: "og:title", content: "Today's Menu — Mangshi" },
       {
         property: "og:description",
         content:
-          "Hover, tap, reveal. A small ritual against visual bias and food waste.",
+          "What will we eat today? Tap to reveal.",
       },
       { property: "og:url", content: "/box" },
     ],
@@ -27,165 +30,304 @@ export const Route = createFileRoute("/box")({
   component: BoxPage,
 });
 
-const sample = {
-  batch: "#402",
-  kcal: 520,
-  protein: "26g",
-  carbs: "58g",
-  fat: "14g",
-  ingredientKeys: [
-    "box.ing1",
-    "box.ing2",
-    "box.ing3",
-    "box.ing4",
-    "box.ing5",
-  ] as TranslationKey[],
-};
+interface MealCard {
+  id: string;
+  image: string;
+  typeLabel: string;
+  name: string;
+  nameZh: string;
+  ingredients: Array<{ emoji: string; name: string; nameZh: string }>;
+  mealType: string[];
+  allergens: string;
+  allergensZh: string;
+  pickup: string;
+  pickupZh: string;
+  price: string;
+  todayMenu: string;
+  kcal: number;
+  protein: string;
+  carbs: string;
+  fat: string;
+  weight: string;
+}
 
-const whys: Array<{ no: string; titleKey: TranslationKey; bodyKey: TranslationKey }> = [
-  { no: "i.", titleKey: "box.why1.title", bodyKey: "box.why1.body" },
-  { no: "ii.", titleKey: "box.why2.title", bodyKey: "box.why2.body" },
-  { no: "iii.", titleKey: "box.why3.title", bodyKey: "box.why3.body" },
+const meals: MealCard[] = [
+  {
+    id: "halal-chicken",
+    image: boxBlue,
+    typeLabel: "REGULAR 01",
+    name: "HALAL CHICKEN BOX",
+    nameZh: "清真雞肉盒",
+    ingredients: [
+      { emoji: "🥬", name: "Cabbage", nameZh: "高麗菜" },
+      { emoji: "🥕", name: "Carrot", nameZh: "紅蘿蔔" },
+      { emoji: "🍠", name: "Sweet Potato", nameZh: "地瓜" },
+      { emoji: "🍗", name: "Halal Chicken", nameZh: "清真雞肉" },
+      { emoji: "🍚", name: "Rice", nameZh: "白飯" },
+    ],
+    mealType: ["Halal", "Regular", "Chicken"],
+    allergens: "Soy · Sesame",
+    allergensZh: "大豆 · 芝麻",
+    pickup: "NCU Campus · 12:00–13:30",
+    pickupZh: "中央大學 · 12:00–13:30",
+    price: "NT$100",
+    todayMenu: "???",
+    kcal: 520,
+    protein: "26g",
+    carbs: "58g",
+    fat: "14g",
+    weight: "450g",
+  },
+  {
+    id: "pork-box",
+    image: boxRed,
+    typeLabel: "REGULAR 02",
+    name: "BRAISED PORK BOX",
+    nameZh: "滷肉盒",
+    ingredients: [
+      { emoji: "🥬", name: "Mustard Greens", nameZh: "芥菜" },
+      { emoji: "🍖", name: "Pork Belly", nameZh: "五花肉" },
+      { emoji: "🥕", name: "Daikon Radish", nameZh: "蘿蔔" },
+      { emoji: "🫚", name: "Ginger", nameZh: "薑" },
+      { emoji: "🍚", name: "Rice", nameZh: "白飯" },
+    ],
+    mealType: ["Regular", "Pork"],
+    allergens: "Soy · Wheat",
+    allergensZh: "大豆 · 小麥",
+    pickup: "NCU Campus · 12:00–13:30",
+    pickupZh: "中央大學 · 12:00–13:30",
+    price: "NT$100",
+    todayMenu: "???",
+    kcal: 580,
+    protein: "24g",
+    carbs: "52g",
+    fat: "22g",
+    weight: "470g",
+  },
+  {
+    id: "harvest-box",
+    image: boxYellow,
+    typeLabel: "SEASONAL 01",
+    name: "HARVEST BOX",
+    nameZh: "時蔬盒",
+    ingredients: [
+      { emoji: "🥦", name: "Broccoli", nameZh: "青花菜" },
+      { emoji: "🍆", name: "Eggplant", nameZh: "茄子" },
+      { emoji: "🌽", name: "Corn", nameZh: "玉米" },
+      { emoji: "🥬", name: "Seasonal Greens", nameZh: "時令蔬菜" },
+      { emoji: "🍚", name: "Rice", nameZh: "白飯" },
+    ],
+    mealType: ["Vegetarian", "Seasonal"],
+    allergens: "Soy",
+    allergensZh: "大豆",
+    pickup: "NCU Campus · 12:00–13:30",
+    pickupZh: "中央大學 · 12:00–13:30",
+    price: "NT$90",
+    todayMenu: "???",
+    kcal: 420,
+    protein: "14g",
+    carbs: "62g",
+    fat: "10g",
+    weight: "430g",
+  },
 ];
 
 function BoxPage() {
-  const { t } = useLang();
-  const [open, setOpen] = useState(false);
+  const { lang, t } = useLang();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [flipped, setFlipped] = useState<Record<number, boolean>>({});
+
+  const isZh = lang === "zh";
+
+  const prev = () => {
+    setActiveIndex((i) => (i === 0 ? meals.length - 1 : i - 1));
+  };
+  const next = () => {
+    setActiveIndex((i) => (i === meals.length - 1 ? 0 : i + 1));
+  };
+  const toggleFlip = () => {
+    setFlipped((f) => ({ ...f, [activeIndex]: !f[activeIndex] }));
+  };
+
+  const meal = meals[activeIndex]!;
+  const isOpen = !!flipped[activeIndex];
 
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
 
       {/* HEADER */}
-      <section className="pt-40 pb-16 px-6 md:px-8 max-w-5xl mx-auto text-center">
+      <section className="pt-40 pb-10 px-6 md:px-8 max-w-5xl mx-auto text-center">
         <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-indigo-dye">
           {t("box.kicker")}
         </span>
         <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-balance">
-          {t("box.title1")} <br />
-          {t("box.title2")} <span className="italic">{t("box.title.see")}</span>
+          {t("box.title1")}{" "}
+          <span className="italic">{t("box.title.see")}</span>
         </h1>
         <p className="mt-8 max-w-xl mx-auto text-clay leading-relaxed text-lg">
           {t("box.body")}
         </p>
       </section>
 
-      {/* INTERACTIVE BOX */}
+      {/* INTERACTIVE CARDS */}
       <section className="px-6 md:px-8 pb-24">
-        <div className="max-w-xl mx-auto">
+        <div className="max-w-md mx-auto">
+          {/* Card */}
           <button
             type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-pressed={open}
-            aria-label={open ? t("box.aria.hide") : t("box.aria.reveal")}
-            className="relative w-full h-[34rem] sm:h-auto sm:aspect-square cursor-pointer group [perspective:1500px] focus:outline-none"
+            onClick={toggleFlip}
+            className="relative w-full aspect-[4/5] cursor-pointer group [perspective:1500px] focus:outline-none"
           >
             <div
               className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d]"
               style={{
-                transform: open ? "rotateY(180deg)" : "rotateY(0deg)",
+                transform: isOpen ? "rotateY(180deg)" : "rotateY(0deg)",
               }}
             >
-              {/* SEALED FACE */}
-              <div className="absolute inset-0 bg-indigo-dye text-paper p-6 sm:p-10 flex flex-col items-center justify-center [backface-visibility:hidden]">
-                <div className="w-full h-full border border-paper/20 flex flex-col items-center justify-center gap-6 sm:gap-8 py-6">
-                  <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.3em] opacity-60">
-                    {t("box.sealed")}
-                  </span>
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 border border-paper/30 rotate-45 flex items-center justify-center shrink-0">
-                    <span className="-rotate-45 font-display text-4xl sm:text-5xl italic">
-                      H
-                    </span>
-                  </div>
-                  <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.3em] opacity-60">
-                    {t("box.tap")}
+              {/* FRONT — Blind Box Image */}
+              <div className="absolute inset-0 [backface-visibility:hidden] flex flex-col items-center justify-center rounded-2xl overflow-hidden">
+                <img
+                  src={meal.image}
+                  alt={meal.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
+                  <span className="bg-white/90 text-foreground font-display text-lg md:text-xl px-6 py-3 rounded-full shadow-lg">
+                    {isZh ? "點擊揭曉!" : "Tap here to reveal!"}
                   </span>
                 </div>
               </div>
 
-              {/* REVEALED FACE */}
-              <div className="absolute inset-0 bg-paper text-foreground p-8 md:p-10 flex flex-col [backface-visibility:hidden] [transform:rotateY(180deg)] border border-foreground/10">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-indigo-dye font-semibold">
-                      {t("box.batch")} {sample.batch}
-                    </span>
-                    <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-clay">
-                      {t("box.origin")}
-                    </p>
-                  </div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay text-right">
-                    {t("box.harvested")}
-                    <br />
-                    {t("box.harvested.value")}
+              {/* BACK — Meal Details */}
+              <div className="absolute inset-0 bg-[#f2f1eb] text-foreground p-6 md:p-8 flex flex-col [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-foreground/10 overflow-y-auto">
+                {/* Type label */}
+                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-clay">
+                  {meal.typeLabel}
+                </span>
+                <h3 className="mt-1 font-display text-2xl md:text-3xl font-bold leading-tight">
+                  {isZh ? meal.nameZh : meal.name}
+                </h3>
+
+                {/* Today's Ingredients */}
+                <div className="mt-4">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay font-semibold">
+                    {isZh ? "今日食材" : "Today's Ingredients"}
                   </span>
+                  <p className="mt-2 text-sm leading-relaxed">
+                    {meal.ingredients.map((ing, i) => (
+                      <span key={ing.name}>
+                        {i > 0 && " · "}
+                        {ing.emoji} {isZh ? ing.nameZh : ing.name}
+                      </span>
+                    ))}
+                  </p>
                 </div>
 
-                <ul className="mt-6 flex-1 flex flex-col justify-center font-display text-xl md:text-2xl leading-snug">
-                  {sample.ingredientKeys.map((k) => (
-                    <li key={k} className="border-b border-foreground/10 py-2">
-                      {t(k)}
-                    </li>
-                  ))}
-                </ul>
+                {/* Meal Type */}
+                <div className="mt-4">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay font-semibold">
+                    {isZh ? "餐點類型" : "Meal Type"}
+                  </span>
+                  <p className="mt-1 text-sm font-semibold">
+                    {meal.mealType.join(" · ")}
+                  </p>
+                </div>
 
-                <div className="mt-5 pt-4 border-t border-foreground/10 grid grid-cols-4 gap-2 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.2em] text-clay">
+                {/* Allergens */}
+                <div className="mt-3">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay font-semibold">
+                    {isZh ? "過敏原" : "Allergens"}
+                  </span>
+                  <p className="mt-1 text-sm">
+                    {isZh ? meal.allergensZh : meal.allergens}
+                  </p>
+                </div>
+
+                {/* Pickup */}
+                <div className="mt-3">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay font-semibold">
+                    {isZh ? "取餐" : "Pickup"}
+                  </span>
+                  <p className="mt-1 text-sm">
+                    {isZh ? meal.pickupZh : meal.pickup}
+                  </p>
+                </div>
+
+                {/* Price */}
+                <p className="mt-3 text-xl font-bold">{meal.price}</p>
+
+                {/* Nutrition row */}
+                <div className="mt-3 pt-3 border-t border-foreground/10 grid grid-cols-4 gap-2 text-center">
                   <div>
-                    <span className="block text-foreground text-base font-display">
-                      {sample.kcal}
-                    </span>
-                    {t("box.kcal")}
+                    <span className="block text-foreground text-base font-display">{meal.kcal}</span>
+                    <span className="font-mono text-[8px] uppercase tracking-[0.15em] text-clay">{t("box.kcal")}</span>
                   </div>
                   <div>
-                    <span className="block text-foreground text-base font-display">
-                      {sample.protein}
-                    </span>
-                    {t("box.protein")}
+                    <span className="block text-foreground text-base font-display">{meal.protein}</span>
+                    <span className="font-mono text-[8px] uppercase tracking-[0.15em] text-clay">{t("box.protein")}</span>
                   </div>
                   <div>
-                    <span className="block text-foreground text-base font-display">
-                      {sample.carbs}
-                    </span>
-                    {t("box.carbs")}
+                    <span className="block text-foreground text-base font-display">{meal.carbs}</span>
+                    <span className="font-mono text-[8px] uppercase tracking-[0.15em] text-clay">{t("box.carbs")}</span>
                   </div>
                   <div>
-                    <span className="block text-foreground text-base font-display">
-                      {sample.fat}
-                    </span>
-                    {t("box.fat")}
+                    <span className="block text-foreground text-base font-display">{meal.fat}</span>
+                    <span className="font-mono text-[8px] uppercase tracking-[0.15em] text-clay">{t("box.fat")}</span>
                   </div>
+                </div>
+
+                {/* Today's Menu teaser */}
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="text-sm font-semibold">{isZh ? "今日菜單:" : "Today's Menu:"}</span>
+                  <span className="bg-foreground text-background text-xs px-2 py-0.5 rounded font-mono">
+                    {meal.todayMenu}
+                  </span>
                 </div>
               </div>
             </div>
           </button>
 
-          <p className="mt-6 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-clay">
-            {open ? t("box.toggle.open") : t("box.toggle.closed")}
-          </p>
-        </div>
-      </section>
+          {/* Navigation */}
+          <div className="mt-6 flex items-center justify-center gap-6">
+            <button
+              type="button"
+              onClick={prev}
+              className="p-2 border border-foreground/20 rounded-full hover:bg-foreground/5 transition-colors"
+              aria-label="Previous box"
+            >
+              <ChevronLeft size={20} />
+            </button>
 
-      {/* WHY BLIND */}
-      <section className="bg-indigo-dye text-paper py-24 md:py-32 px-6 md:px-8">
-        <div className="max-w-5xl mx-auto">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60">
-            {t("box.why.kicker")}
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl leading-tight">
-            {t("box.why.title")}
-          </h2>
+            <div className="flex gap-2">
+              {meals.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActiveIndex(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                    i === activeIndex ? "bg-foreground" : "bg-foreground/20"
+                  }`}
+                  aria-label={`Box ${i + 1}`}
+                />
+              ))}
+            </div>
 
-          <div className="mt-16 grid md:grid-cols-3 gap-12">
-            {whys.map((c) => (
-              <article key={c.no}>
-                <span className="font-display italic text-3xl text-paper/70">
-                  {c.no}
-                </span>
-                <h3 className="mt-3 font-display text-2xl">{t(c.titleKey)}</h3>
-                <p className="mt-4 text-paper/80 leading-relaxed">{t(c.bodyKey)}</p>
-              </article>
-            ))}
+            <button
+              type="button"
+              onClick={next}
+              className="p-2 border border-foreground/20 rounded-full hover:bg-foreground/5 transition-colors"
+              aria-label="Next box"
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
+
+          <p className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-clay">
+            {isOpen
+              ? (isZh ? "← 重新封盒" : "Sealed again →")
+              : (isZh ? "揭開盲食 →" : "← Reveal meal")}
+          </p>
         </div>
       </section>
 

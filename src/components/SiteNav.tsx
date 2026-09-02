@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo-new.png";
 import { useLang } from "@/lib/i18n";
 
 export function SiteNav() {
@@ -9,11 +9,11 @@ export function SiteNav() {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { to: "/system", label: t("nav.system") },
-    { to: "/culture", label: t("nav.culture") },
     { to: "/box", label: t("nav.box") },
-    { to: "/mission", label: t("nav.mission") },
-    { to: "/seasons", label: t("nav.seasons") },
+    { to: "/today", label: t("nav.culture") },
+    { to: "/system", label: t("nav.system") },
+    { to: "/impact", label: t("nav.mission") },
+    { to: "/surplus", label: t("nav.seasons") },
     { to: "/join", label: t("nav.join") },
   ] as const;
 

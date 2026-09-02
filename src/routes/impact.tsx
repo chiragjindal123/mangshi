@@ -7,24 +7,24 @@ import missionFarm from "@/assets/mission-farm.jpg";
 import ingredients from "@/assets/ingredients.jpg";
 import { CountUp } from "@/components/Reveal";
 
-export const Route = createFileRoute("/mission")({
+export const Route = createFileRoute("/impact")({
   head: () => ({
     meta: [
-      { title: "Mission — Hakka Blind Box" },
+      { title: "Impact — Mangshi 盲食" },
       {
         name: "description",
         content:
-          "Why we exist: 94% of Taiwan's vegetables stay domestic, fields are tilled back under, and students still can't afford a balanced meal.",
+          "Why we exist: 94% of Taiwan's vegetables stay domestic, fields are tilled back under, and students still need affordable meals.",
       },
-      { property: "og:title", content: "Mission · Hakka Blind Box" },
+      { property: "og:title", content: "Impact · Mangshi 盲食" },
       {
         property: "og:description",
         content:
-          "The numbers behind the box — food waste, student affordability, and cultural disconnect in Taiwan.",
+          "The numbers behind the box — food waste, student affordability, and direct impact in Taiwan.",
       },
-      { property: "og:url", content: "/mission" },
+      { property: "og:url", content: "/impact" },
     ],
-    links: [{ rel: "canonical", href: "/mission" }],
+    links: [{ rel: "canonical", href: "/impact" }],
   }),
   component: Mission,
 });

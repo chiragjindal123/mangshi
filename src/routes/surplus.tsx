@@ -14,7 +14,7 @@ const calendarQuery = queryOptions({
   queryFn: () => getSeasonalCalendar(),
 });
 
-export const Route = createFileRoute("/seasons")({
+export const Route = createFileRoute("/surplus")({
   loader: ({ context }) => context.queryClient.ensureQueryData(calendarQuery),
   head: () => ({
     meta: [

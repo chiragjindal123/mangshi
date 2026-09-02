@@ -12,16 +12,16 @@ import hakkaTable from "@/assets/hakka-table.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Hakka Blind Box — Mama's hand, sealed in a box" },
+      { title: "Mangshi 盲食 — 就吃盲食!" },
       {
         name: "description",
         content:
-          "Hakka heritage meals from rescued surplus produce, served sealed so the flavor — not the photo — leads the experience.",
+          "Homecook meals from rescued surplus produce — mama's recipes across cultures, sealed for surprise.",
       },
-      { property: "og:title", content: "Hakka Blind Box" },
+      { property: "og:title", content: "Mangshi 盲食" },
       {
         property: "og:description",
-        content: "An experiential platform for Taiwan students.",
+        content: "What will we eat today? 就吃盲食!",
       },
       { property: "og:url", content: "/" },
     ],
@@ -107,7 +107,7 @@ function Home() {
               {t("home.culture.body")}
             </p>
             <Link
-              to="/culture"
+              to="/today"
               className="mt-8 inline-flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.25em] text-indigo-dye group"
             >
               <span>{t("home.culture.cta")}</span>
@@ -173,7 +173,7 @@ function Home() {
             {t("home.mission.body")}
           </p>
           <Link
-            to="/mission"
+            to="/impact"
             className="mt-10 inline-flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.25em] text-indigo-dye group"
           >
             <span>{t("home.mission.cta")}</span>

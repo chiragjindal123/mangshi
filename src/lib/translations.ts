@@ -4,9 +4,9 @@
 
 export const translations = {
   // ---------- NAV ----------
-  "nav.culture": { en: "Culture", zh: "文化" },
-  "nav.box": { en: "The Box", zh: "盲盒" },
-  "nav.mission": { en: "Mission", zh: "使命" },
+  "nav.culture": { en: "Today", zh: "今天" },
+  "nav.box": { en: "The Box", zh: "盲食" },
+  "nav.mission": { en: "Impact", zh: "影響" },
   "nav.seasons": { en: "Surplus", zh: "月曆" },
   "nav.join": { en: "Join", zh: "加入" },
   "nav.lang.label": { en: "Language", zh: "語言" },
@@ -16,12 +16,12 @@ export const translations = {
     en: "A student-led initiative rescuing surplus harvest from Taiwanese farms — served as Hakka heritage meals, sealed for surprise.",
     zh: "由學生發起的計畫,搶救台灣農地的剩食 —— 化為客家家鄉味,封盒成驚喜。",
   },
-  "footer.region": { en: "Taoyuan · Hsinchu · Miaoli", zh: "桃園 · 新竹 · 苗栗" },
+  "footer.region": { en: "Taoyuan", zh: "桃園" },
   "footer.explore": { en: "Explore", zh: "探索" },
   "footer.recognition": { en: "Recognition", zh: "榮譽" },
-  "footer.link.culture": { en: "Hakka Culture", zh: "客家文化" },
-  "footer.link.box": { en: "The Blind Box", zh: "盲盒體驗" },
-  "footer.link.mission": { en: "Our Mission", zh: "我們的使命" },
+  "footer.link.culture": { en: "Today", zh: "今天" },
+  "footer.link.box": { en: "The Box", zh: "盲食" },
+  "footer.link.mission": { en: "Impact", zh: "影響" },
   "footer.link.join": { en: "Get Involved", zh: "參與我們" },
   "footer.award1": {
     en: "2025 Honorable Mention — Social Innovation",
@@ -32,18 +32,18 @@ export const translations = {
     zh: "與桃園農民合作社合作",
   },
   "footer.copyright": {
-    en: "© 2026 Hakka Blind Box Initiative",
-    zh: "© 2026 客家盲盒計畫",
+    en: "© 2026 Mangshi Lab.",
+    zh: "© 2026 盲食驗室 Mangshi Lab.",
   },
-  "footer.subline": { en: "客家盲盒 · 誠食與山林", zh: "客家盲盒 · 誠食與山林" },
+  "footer.subline": { en: "What will we eat today? 就吃盲食!", zh: "你今天想吃什麼？就吃盲食!" },
 
   // ---------- HOME ----------
-  "home.hero.kicker": { en: "The Hidden Harvest · 客家盲盒", zh: "隱藏的豐收 · 客家盲盒" },
+  "home.hero.kicker": { en: "Mangshi · 盲食", zh: "盲食 · Mangshi" },
   "home.hero.title1": { en: "The steam carries a memory", zh: "蒸氣承載著一段記憶" },
   "home.hero.title2": { en: "you haven't lived yet.", zh: "那是你尚未經歷的記憶" },
   "home.hero.sub": {
-    en: "A student-run kitchen rescuing surplus harvest from Taiwanese farms — served as Hakka heritage meals, sealed for surprise.",
-    zh: "由學生經營的廚房,搶救台灣農場的剩食 —— 化為客家家鄉味,封盒成驚喜。",
+    en: "A student-run kitchen rescuing surplus harvest — homecook meals from mama's recipes across cultures, sealed for surprise.",
+    zh: "由學生經營的廚房,搶救農場的剩食 —— 媽媽的手藝,封盒成驚喜。",
   },
   "home.hero.cta": { en: "Open the box", zh: "打開盲盒" },
 
@@ -83,7 +83,7 @@ export const translations = {
   "home.mission.cta": { en: "The numbers behind the box", zh: "盲盒背後的數字" },
 
   // ---------- CULTURE PAGE ----------
-  "culture.kicker": { en: "Chapter One · Heritage", zh: "第一章 · 傳承" },
+  "culture.kicker": { en: "Today · Live", zh: "今天 · 即時" },
   "culture.title1": { en: "A cuisine taught by", zh: "一道由" },
   "culture.title.scarcity": { en: "scarcity,", zh: "匱乏," },
   "culture.title2": { en: "remembered through", zh: "教會的料理,被" },
@@ -142,21 +142,21 @@ export const translations = {
   "culture.closing.dinner": { en: "dinner.", zh: "「晚餐」。" },
 
   // ---------- BOX PAGE ----------
-  "box.kicker": { en: "Chapter Two · The Reveal", zh: "第二章 · 揭曉" },
-  "box.title1": { en: "A meal you can read,", zh: "一頓你能讀出," },
-  "box.title2": { en: "but cannot", zh: "卻看不見的" },
-  "box.title.see": { en: "see.", zh: "餐點。" },
+  "box.kicker": { en: "Today's Menu · Live", zh: "今日菜單 · 即時" },
+  "box.title1": { en: "What will we eat", zh: "今天" },
+  "box.title2": { en: "", zh: "" },
+  "box.title.see": { en: "today?", zh: "吃什麼？" },
   "box.body": {
-    en: "Click the box. The label flips — ingredients and nutrition, nothing else. The dish itself waits inside, where surprise should live.",
-    zh: "點一下盲盒。標籤翻面 —— 只有食材與營養,別無他物。料理本身藏在盒中,正是驚喜該在的地方。",
+    en: "Tap a box to reveal today's meal — ingredients, allergens, pickup time and price. The dish stays a surprise until you open the lid.",
+    zh: "點擊盲食盒揭曉今日餐點 —— 食材、過敏原、取餐時間與價格。料理本身,要打開才知道。",
   },
 
   "box.sealed": { en: "Sealed for surprise", zh: "封盒待揭曉" },
-  "box.tap": { en: "Tap to read the label", zh: "點擊閱讀標籤" },
+  "box.tap": { en: "Tap here to reveal!", zh: "點擊揭曉!" },
   "box.batch": { en: "Batch", zh: "批次" },
   "box.harvested": { en: "Harvested", zh: "採收於" },
   "box.harvested.value": { en: "48 hours ago", zh: "48 小時前" },
-  "box.origin": { en: "Hsinchu Cooperative", zh: "新竹合作社" },
+  "box.origin": { en: "Taoyuan Cooperative", zh: "桃園合作社" },
   "box.kcal": { en: "kcal", zh: "大卡" },
   "box.protein": { en: "Protein", zh: "蛋白質" },
   "box.carbs": { en: "Carbs", zh: "碳水" },
@@ -194,7 +194,7 @@ export const translations = {
   },
 
   // ---------- MISSION PAGE ----------
-  "mission.kicker": { en: "Chapter Three · Why We Exist", zh: "第三章 · 我們為何存在" },
+  "mission.kicker": { en: "Impact · Why We Exist", zh: "影響 · 我們為何存在" },
   "mission.title1": { en: "Produce wasted at the farm.", zh: "農地裡被浪費的作物。" },
   "mission.title2": { en: "Students who", zh: "和" },
   "mission.title.cant": { en: "can't afford", zh: "吃不起" },
@@ -247,8 +247,8 @@ export const translations = {
   "mission.loop.title": { en: "Rescue · Cook · Seal · Surprise.", zh: "搶救 · 烹煮 · 封盒 · 驚喜。" },
   "mission.loop1.title": { en: "Rescue", zh: "搶救" },
   "mission.loop1.body": {
-    en: "Daily pick-ups from cooperative farms in Taoyuan, Hsinchu and Miaoli — produce that would have been tilled under.",
-    zh: "每日從桃園、新竹、苗栗的合作社農場取貨 —— 原本將被翻回土裡的作物。",
+    en: "Daily pick-ups from cooperative farms in Taoyuan — produce that would have been tilled under.",
+    zh: "每日從桃園的合作社農場取貨 —— 原本將被翻回土裡的作物。",
   },
   "mission.loop2.title": { en: "Cook", zh: "烹煮" },
   "mission.loop2.body": {
@@ -268,7 +268,7 @@ export const translations = {
   "mission.cta": { en: "Join the first batch", zh: "加入首批體驗" },
 
   // ---------- JOIN PAGE ----------
-  "join.kicker": { en: "Chapter Four · Join", zh: "第四章 · 加入" },
+  "join.kicker": { en: "Join Us", zh: "加入我們" },
   "join.title1": { en: "Open the first box", zh: "與我們一起" },
   "join.title2": { en: "with us.", zh: "打開第一個盲盒。" },
   "join.body": {
@@ -301,8 +301,8 @@ export const translations = {
 
   "join.farmers.title": { en: "For farmers", zh: "給農夫" },
   "join.farmers.body1": {
-    en: "If you're a Taoyuan, Hsinchu or Miaoli grower with surplus produce, we'll come pick it up. Email ",
-    zh: "如果你是桃園、新竹或苗栗有剩食的農夫,我們會去取貨。請來信 ",
+    en: "If you're a Taoyuan grower with surplus produce, we'll come pick it up. Email ",
+    zh: "如果你是桃園有剩食的農夫,我們會去取貨。請來信 ",
   },
   "join.universities.title": { en: "For universities", zh: "給大學" },
   "join.universities.body1": {
