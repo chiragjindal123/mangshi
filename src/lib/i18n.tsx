@@ -26,7 +26,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (typeof window !== "undefined") localStorage.setItem("lang", l);
   };
 
-  const t = (k: TranslationKey) => translations[k][lang];
+  const t = (k: TranslationKey) => (translations[k] ? translations[k][lang] : (k as string));
   return <LangCtx.Provider value={{ lang, setLang, t }}>{children}</LangCtx.Provider>;
 }
 

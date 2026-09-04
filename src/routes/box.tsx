@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useLang } from "@/lib/i18n";
@@ -328,6 +328,18 @@ function BoxPage() {
               ? (isZh ? "← 重新封盒" : "Sealed again →")
               : (isZh ? "揭開盲食 →" : "← Reveal meal")}
           </p>
+
+          {/* PREORDER BUTTON */}
+          <div className="mt-8 text-center">
+            <Link
+              to="/system/supply"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-mono text-[11px] uppercase tracking-[0.2em] font-bold shadow-lg border border-black/15 transition-all transform hover:scale-105 animate-bounce"
+              style={{ backgroundColor: "#ffffff", color: "#000000" }}
+            >
+              <Sparkles size={15} className="animate-spin" style={{ color: "#d97706" }} />
+              <span style={{ color: "#000000" }}>START TO PREORDER - FARMER / STUDENT</span>
+            </Link>
+          </div>
         </div>
       </section>
 

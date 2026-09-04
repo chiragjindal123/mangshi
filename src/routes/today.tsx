@@ -3,7 +3,8 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useLang } from "@/lib/i18n";
 import type { TranslationKey } from "@/lib/translations";
-import cultureHands from "@/assets/culture-hands.jpg";
+import grandmaCooking from "@/assets/grandma-cooking.jpg";
+import heroSteam from "@/assets/hero-steam.jpg";
 import ingredients from "@/assets/ingredients.jpg";
 import picklingJars from "@/assets/pickling-jars.png";
 
@@ -102,12 +103,12 @@ function Culture() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16 items-center">
           <div className="md:col-span-6">
             <img
-              src={cultureHands}
-              alt="An elderly weaver's hands at an indigo loom"
+              src={grandmaCooking}
+              alt="Grandma cooking in a Taiwanese kitchen"
               loading="lazy"
               width={1080}
               height={1620}
-              className="w-full aspect-[3/4] object-cover"
+              className="w-full aspect-[3/4] object-cover rounded-xl shadow-lg"
             />
           </div>
           <div className="md:col-span-6">

@@ -5,7 +5,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useLang } from "@/lib/i18n";
 import heroSteam from "@/assets/hero-steam.jpg";
-import cultureHands from "@/assets/culture-hands.jpg";
+import grandmaCooking from "@/assets/grandma-cooking.jpg";
 import boxSealed from "@/assets/box-sealed.jpg";
 import missionFarm from "@/assets/mission-farm.jpg";
 import sealedBoxHands from "@/assets/sealed-box-hands-v2.png";
@@ -324,8 +324,8 @@ function Home() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16 items-end">
           <div className="md:col-span-7 img-hover-zoom">
             <img
-              src={cultureHands}
-              alt="Artisanal hands crafting traditional food"
+              src={grandmaCooking}
+              alt="Grandma cooking in traditional kitchen"
               loading="lazy"
               width={1200}
               height={1500}

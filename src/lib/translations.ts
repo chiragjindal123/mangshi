@@ -371,10 +371,10 @@ export const translations = {
   "sys.step4": { en: "Kitchen cooks, box sealed", zh: "廚房開火,封盒出餐" },
   "sys.enter": { en: "Open the system", zh: "進入系統" },
 
-  "sys.supply.title": { en: "Farmer supply input", zh: "產地剩食登錄" },
+  "sys.supply.title": { en: "Supply Input / Output", zh: "產地供應與校園預購" },
   "sys.supply.body": {
-    en: "Log a surplus batch. It becomes available stock for the next matching run.",
-    zh: "登錄一批剩食,立即成為下一輪配對的可用庫存。",
+    en: "Log farmer surplus harvest supply inputs and campus meal preorders for daily matching runs.",
+    zh: "登錄農家剩食供應與校園餐點預購,提供每日菜單配對運算。",
   },
   "sys.supply.farmer": { en: "Farmer / cooperative", zh: "農友 / 合作社" },
   "sys.supply.veg": { en: "Vegetable", zh: "蔬菜品項" },
